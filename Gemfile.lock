@@ -128,6 +128,7 @@ GEM
     jekyll-mentions (1.6.0)
       html-pipeline (~> 2.3)
       jekyll (>= 3.7, < 5.0)
+    jekyll-mermaid (1.0.0)
     jekyll-optional-front-matter (0.3.2)
       jekyll (>= 3.0, < 5.0)
     jekyll-paginate (1.1.0)
@@ -148,19 +149,10 @@ GEM
       jekyll (>= 3.8, < 5.0)
     jekyll-sitemap (1.4.0)
       jekyll (>= 3.7, < 5.0)
-    jekyll-spaceship (0.10.2)
-      gemoji (~> 3.0)
-      jekyll (>= 3.6, < 5.0)
-      nokogiri (~> 1.6)
-      rainbow (~> 3.0)
     jekyll-swiss (1.0.0)
-    jekyll-tabs (1.1.1)
-      jekyll (>= 3.0, < 5.0)
     jekyll-theme-architect (0.2.0)
       jekyll (> 3.5, < 5.0)
       jekyll-seo-tag (~> 2.0)
-    jekyll-theme-bootstrap (0.0.5)
-      jekyll (~> 3.3)
     jekyll-theme-cayman (0.2.0)
       jekyll (> 3.5, < 5.0)
       jekyll-seo-tag (~> 2.0)
@@ -206,6 +198,10 @@ GEM
       gemoji (~> 3.0)
       html-pipeline (~> 2.2)
       jekyll (>= 3.0, < 5.0)
+    just-the-docs (0.3.3)
+      jekyll (>= 3.8.5)
+      jekyll-seo-tag (~> 2.0)
+      rake (>= 12.3.1, < 13.1.0)
     kramdown (2.3.2)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -229,7 +225,7 @@ GEM
       forwardable-extended (~> 2.6)
     public_suffix (4.0.7)
     racc (1.6.0)
-    rainbow (3.1.1)
+    rake (13.0.6)
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -267,19 +263,15 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  http_parser.rb (~> 0.6.0)
   jekyll
-  jekyll-feed
-  jekyll-gist
-  jekyll-include-cache
-  jekyll-paginate
-  jekyll-seo-tag
-  jekyll-sitemap
-  jekyll-spaceship
-  jekyll-tabs
-  jekyll-theme-bootstrap
-  jemoji
+  jekyll-mermaid
+  just-the-docs
   kramdown-parser-gfm
-  webrick (~> 1.7)
+  tzinfo (~> 1.2)
+  tzinfo-data
+  wdm (~> 0.1.1)
+  webrick
 
 BUNDLED WITH
    2.3.16
