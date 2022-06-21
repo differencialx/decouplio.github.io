@@ -2,6 +2,8 @@
 layout: default
 title: Fail
 permalink: /fail/
+parent: Logic block
+nav_order: 2
 ---
 
 # Fail

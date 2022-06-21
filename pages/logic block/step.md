@@ -1,3 +1,11 @@
+---
+layout: default
+title: Step
+permalink: /step/
+parent: Logic block
+nav_order: 1
+---
+
 # Step
 
 `step` is the basic type of `logic` steps
@@ -11,12 +19,12 @@ step(step_name, **options)
 ## Behavior
 
  - when step method(`#step_one`) returns truthy value then it goes to success track(`step_two` step)
- - when step method(#step_one) returns falsy value then it goes to failure track(`fail_one` step)
+ - when step method(`#step_one`) returns falsy value then it goes to failure track(`fail_one` step)
 
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeAction < Decouplio::Action
@@ -65,16 +73,16 @@ step(step_name, **options)
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-    flowchart LR
+  {% mermaid %}
+    flowchart LR;
         A(start)-->B(step_one);
         B(step_one)-->|success track|C(step_two);
         B(step_one)-->|failure track|D(fail_one);
         C(step_two)-->|success track|E(finish_success);
         D(fail_one)-->|failure track|F(finish_failure);
-  ```
+  {% endmermaid %}
 
 </p>
 </details>
@@ -84,6 +92,7 @@ step(step_name, **options)
 ## Options
 
 ### on_success:
+
 |Allowed values|Description|
 |-|-|
 |:finish_him|action stops execution if `step` method returns truthy value|
@@ -96,7 +105,7 @@ step(step_name, **options)
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnSuccessFinishHim < Decouplio::Action
@@ -144,15 +153,15 @@ step(step_name, **options)
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|success track|3(finish_success);
       2(step_one)-->|failure track|4(fail_one);
       4(fail_one)-->|failure track|5(finish_failure);
-  ```
+  {% endmermaid %}
 </p>
 </details>
 
@@ -163,7 +172,7 @@ step(step_name, **options)
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnSuccessToSuccessTrack < Decouplio::Action
@@ -216,16 +225,16 @@ step(step_name, **options)
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       A(start)-->B(step_one);
       B(step_one)-->|success track|C(step_three);
       B(step_one)-->|failure track|D(fail_one);
       C(step_three)-->|success track|E(finish_success);
       D(fail_one)-->|failure track|F(finish_failure);
-  ```
+  {% endmermaid %}
 
 </p>
 </details>
@@ -239,7 +248,7 @@ Can be used if for some reason you need to jump to fail step
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnSuccessToFailureTrack < Decouplio::Action
@@ -297,17 +306,16 @@ Can be used if for some reason you need to jump to fail step
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
-      A(start)-->B(step_one);
-      B(step_one)-->|success track|C(fail_two);
-      B(step_one)-->|failure track|D(fail_one);
-      C(fail_two)-->|success track|E(finish_failure);
-      D(fail_one)-->|failure track|C(fail_two);
-      C(fail_two)-->|failure track|E(finish_failure);
-  ```
+  {% mermaid %}
+  flowchart LR;
+      1(start)-->2(step_one);
+      2(step_one)-->|success track|3(fail_two);
+      2(step_one)-->|failure track|4(fail_one);
+      4(fail_one)-->|failure track|3(fail_two);
+      3(fail_two)-->|failure track|5(finish_failure);
+  {% endmermaid %}
 
 </p>
 </details>
@@ -318,10 +326,12 @@ Can be used if for some reason you need to jump to fail step
 It will perform like regular `step`, just move to next success track step.
 
 ### on_success: :FAIL
+It will perform next failure track step OR finish action as `failure` in case if step is the last step.
+
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnSuccessFail < Decouplio::Action
@@ -369,15 +379,15 @@ It will perform like regular `step`, just move to next success track step.
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|success track|3(step_two);
       3(step_two)-->|success track|4(finish_failure);
-      3(step_two)-->|failure track|4(finish_failure);
-  ```
+      3(step_two)-->|failure track|5(finish_failure);
+  {% endmermaid %}
 </p>
 </details>
 
@@ -385,6 +395,7 @@ It will perform like regular `step`, just move to next success track step.
 
 
 ### on_failure:
+
 |Allowed values|Description|
 |-|-|
 |:finish_him|action stops execution if `step` method returns falsy value|
@@ -397,7 +408,7 @@ It will perform like regular `step`, just move to next success track step.
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnFailureFinishHim < Decouplio::Action
@@ -450,15 +461,15 @@ It will perform like regular `step`, just move to next success track step.
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|success track|3(step_two);
       3(step_two)-->|success track|5(finish_success);
       2(step_one)-->|failure track|4(finish_failure);
-  ```
+  {% endmermaid %}
 </p>
 </details>
 
@@ -471,7 +482,7 @@ Can be used in case if you need to come back to success track
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnFailureToSuccessTrack < Decouplio::Action
@@ -530,16 +541,16 @@ Can be used in case if you need to come back to success track
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|success track|3(step_two);
       3(step_two)-->|success track|4(step_three);
       4(step_three)-->|success track|5(finish_success);
       2(step_one)-->|failure track|4(step_three);
-  ```
+  {% endmermaid %}
 </p>
 </details>
 
@@ -550,7 +561,7 @@ Can be used in case if you need to come back to success track
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnFailureToFailureTrack < Decouplio::Action
@@ -608,27 +619,29 @@ Can be used in case if you need to come back to success track
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|success track|3(step_two);
       3(step_two)-->|success track|4(step_three);
       4(step_three)-->|success track|5(finish_success);
       2(step_one)-->|failure track|6(fail_two);
       6(fail_two)-->|failure track|7(finish_failure);
-  ```
+  {% endmermaid %}
 </p>
 </details>
 
 ***
 
 ### on_failure: :PASS
+It will perform next success track step OR finish action as `success` if it's the last step.
+
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnFailurePass < Decouplio::Action
@@ -677,16 +690,15 @@ Can be used in case if you need to come back to success track
 
     # Errors:
     #   {}
+  {% endhighlight %}
 
-  ```
-
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|success track|3(step_two);
       3(step_two)-->|success track|4(finish_success);
-      3(step_two)-->|failure track|4(finish_success);
-  ```
+      3(step_two)-->|failure track|5(finish_success);
+  {% endmermaid %}
 </p>
 </details>
 
@@ -704,7 +716,7 @@ Can be used in case if for some reason step shouldn't be executed
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnIfCondition < Decouplio::Action
@@ -772,17 +784,17 @@ Can be used in case if for some reason step shouldn't be executed
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|condition positive|3(step_two);
       3(step_two)-->|condition positive|4(step_three);
       4(step_three)-->|condition positive|5(finish_success);
       2(step_one)-->|condition negative|6(step_two);
       6(step_two)-->|condition negative|7(finish_success);
-  ```
+  {% endmermaid %}
 </p>
 </details>
 
@@ -794,7 +806,7 @@ Can be used in case if for some reason step shouldn't be executed
 <details><summary><b>EXAMPLE (CLICK ME)</b></summary>
 <p>
 
-  ```ruby
+  {% highlight ruby %}
     require 'decouplio'
 
     class SomeActionOnUnlessCondition < Decouplio::Action
@@ -862,17 +874,17 @@ Can be used in case if for some reason step shouldn't be executed
 
     # Errors:
     #   {}
-  ```
+  {% endhighlight %}
 
-  ```mermaid
-  flowchart LR
+  {% mermaid %}
+  flowchart LR;
       1(start)-->2(step_one);
       2(step_one)-->|condition positive|3(step_two);
       3(step_two)-->|condition positive|4(finish_success);
       2(step_one)-->|condition negative|5(step_two);
       5(step_two)-->|condition negative|6(step_three);
       6(step_three)-->|condition negative|7(finish_success);
-  ```
+  {% endmermaid %}
 </p>
 </details>
 

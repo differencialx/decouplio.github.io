@@ -1,0 +1,278 @@
+<!DOCTYPE html> <html lang="en-US"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=Edge"> <title>Error store - Decouplio</title> <link rel="shortcut icon" href="/decouplio.github.io/favicon.ico" type="image/x-icon"> <link rel="stylesheet" href="/decouplio.github.io/assets/css/just-the-docs-default.css"> <script type="text/javascript" src="/decouplio.github.io/assets/js/vendor/lunr.min.js"></script> <script type="text/javascript" src="/decouplio.github.io/assets/js/just-the-docs.js"></script> <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.8.0 --> <title>Error store | Decouplio</title> <meta name="generator" content="Jekyll v3.9.2" /> <meta property="og:title" content="Error store" /> <meta property="og:locale" content="en_US" /> <meta name="description" content="Decouplio is a zero dependency, thread safe and framework agnostic gem designed to encapsulate application business logic. It’s reverse engineered through TDD and inspired by such frameworks and gems like Trailblazer, Interactor." /> <meta property="og:description" content="Decouplio is a zero dependency, thread safe and framework agnostic gem designed to encapsulate application business logic. It’s reverse engineered through TDD and inspired by such frameworks and gems like Trailblazer, Interactor." /> <link rel="canonical" href="http://localhost:4000/decouplio.github.io/error_store/" /> <meta property="og:url" content="http://localhost:4000/decouplio.github.io/error_store/" /> <meta property="og:site_name" content="Decouplio" /> <meta property="og:type" content="website" /> <meta name="twitter:card" content="summary" /> <meta property="twitter:title" content="Error store" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"WebPage","description":"Decouplio is a zero dependency, thread safe and framework agnostic gem designed to encapsulate application business logic. It’s reverse engineered through TDD and inspired by such frameworks and gems like Trailblazer, Interactor.","headline":"Error store","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/decouplio.github.io/assets/images/logo_web.png"}},"url":"http://localhost:4000/decouplio.github.io/error_store/"}</script> <!-- End Jekyll SEO tag --> </head> <body> <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> <symbol id="svg-link" viewBox="0 0 24 24"> <title>Link</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"> <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path> </svg> </symbol> <symbol id="svg-search" viewBox="0 0 24 24"> <title>Search</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"> <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg> </symbol> <symbol id="svg-menu" viewBox="0 0 24 24"> <title>Menu</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"> <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line> </svg> </symbol> <symbol id="svg-arrow-right" viewBox="0 0 24 24"> <title>Expand</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"> <polyline points="9 18 15 12 9 6"></polyline> </svg> </symbol> <symbol id="svg-doc" viewBox="0 0 24 24"> <title>Document</title> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"> <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline> </svg> </symbol> </svg> <div class="side-bar"> <div class="site-header"> <a href="http://localhost:4000/decouplio.github.io/" class="site-title lh-tight"> <div class="site-logo"></div> </a> <a href="#" id="menu-button" class="site-button"> <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg> </a> </div> <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav"> <ul class="nav-list"><li class="nav-list-item"><a href="http://localhost:4000/decouplio.github.io/quick_start/" class="nav-list-link">Quick start</a></li><li class="nav-list-item"><a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a><a href="http://localhost:4000/decouplio.github.io/logic_block/" class="nav-list-link">Logic block</a><ul class="nav-list "><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/context/" class="nav-list-link">Context</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/step/" class="nav-list-link">Step</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/fail/" class="nav-list-link">Fail</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/pass/" class="nav-list-link">Pass</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/wrap/" class="nav-list-link">Wrap</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/octo/" class="nav-list-link">Octo</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/resq/" class="nav-list-link">Resq</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/doby_aide/" class="nav-list-link">Doby/Aide</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/inner_action/" class="nav-list-link">Inner action</a></li><li class="nav-list-item "><a href="http://localhost:4000/decouplio.github.io/step_as_a_service/" class="nav-list-link">Step as a service</a></li></ul></li><li class="nav-list-item active"><a href="http://localhost:4000/decouplio.github.io/error_store/" class="nav-list-link active">Error store</a></li><li class="nav-list-item"><a href="http://localhost:4000/decouplio.github.io/benchmarks/" class="nav-list-link">Benchmarks</a></li></ul> </nav> <footer class="site-footer"> This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll. </footer> </div> <div class="main" id="top"> <div id="main-header" class="main-header"> <div class="search"> <div class="search-input-wrap"> <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Decouplio" aria-label="Search Decouplio" autocomplete="off"> <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label> </div> <div id="search-results" class="search-results"></div> </div> <nav aria-label="Auxiliary" class="aux-nav"> <ul class="aux-nav-list"> <li class="aux-nav-list-item"> <a href="//github.com/differencialx/decouplio" class="site-button" > GitHub Repo </a> </li> </ul> </nav> </div> <div id="main-content-wrap" class="main-content-wrap"> <div id="main-content" class="main-content" role="main"> <h1 id="error-store"> <a href="#error-store" class="anchor-heading" aria-labelledby="error-store"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Error store </h1> <p>It’s an object to store errors. By default <code class="language-plaintext highlighter-rouge">Decouplio::DefaultErrorHandler</code> is used for <code class="language-plaintext highlighter-rouge">Decouplio::Action</code></p> <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Decouplio</span>
+  <span class="k">class</span> <span class="nc">DefaultErrorHandler</span>
+    <span class="nb">attr_reader</span> <span class="ss">:errors</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span>
+      <span class="vi">@errors</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">add_error</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+      <span class="vi">@errors</span><span class="p">.</span><span class="nf">store</span><span class="p">(</span>
+        <span class="n">key</span><span class="p">,</span>
+        <span class="p">(</span><span class="vi">@errors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">||</span> <span class="p">[])</span> <span class="o">+</span> <span class="p">[</span><span class="n">message</span><span class="p">].</span><span class="nf">flatten</span>
+      <span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">error_store</span><span class="p">)</span>
+      <span class="vi">@errors</span> <span class="o">=</span> <span class="vi">@errors</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">error_store</span><span class="p">.</span><span class="nf">errors</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">_key</span><span class="p">,</span> <span class="n">this_val</span><span class="p">,</span> <span class="n">other_val</span><span class="o">|</span>
+        <span class="n">this_val</span> <span class="o">+</span> <span class="n">other_val</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div> <h2 id="how-to-use"> <a href="#how-to-use" class="anchor-heading" aria-labelledby="how-to-use"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How to use </h2> <p>Inside step method you can call <code class="language-plaintext highlighter-rouge">#add_error</code> method</p> <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">add_error</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'decouplio'</span>
+
+<span class="k">class</span> <span class="nc">SomeAction</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+  <span class="n">logic</span> <span class="k">do</span>
+    <span class="n">step</span> <span class="ss">:step_one</span>
+    <span class="nb">fail</span> <span class="ss">:fail_one</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">step_one</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+    <span class="kp">false</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">fail_one</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+    <span class="n">add_error</span><span class="p">(</span><span class="ss">:something_went_wrong</span><span class="p">,</span> <span class="s1">'Something went wrong'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">action</span> <span class="o">=</span> <span class="no">SomeAction</span><span class="p">.</span><span class="nf">call</span>
+
+<span class="n">action</span> <span class="c1"># =&gt;</span>
+<span class="c1"># Result: failure</span>
+
+<span class="c1"># Railway Flow:</span>
+<span class="c1">#   step_one -&gt; fail_one</span>
+
+<span class="c1"># Context:</span>
+<span class="c1">#   {}</span>
+
+<span class="c1"># Errors:</span>
+<span class="c1">#   {:something_went_wrong=&gt;["Something went wrong"]}</span>
+
+<span class="n">action</span><span class="p">.</span><span class="nf">errors</span> <span class="c1"># =&gt;</span>
+<span class="c1"># {:something_went_wrong=&gt;["Something went wrong"]}</span>
+</code></pre></div></div> <h2 id="behavior"> <a href="#behavior" class="anchor-heading" aria-labelledby="behavior"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Behavior </h2> <ul> <li>If error was added, it doesn’t mean that action result is <code class="language-plaintext highlighter-rouge">failure</code>, action can be <code class="language-plaintext highlighter-rouge">success</code> and have errors, so basically <code class="language-plaintext highlighter-rouge">error store</code> is just a container for errors. Such behavior was implemented to provide more freedom.</li> <li>Error store for parent an inner action should be the same. It’s because different error stores may have different <code class="language-plaintext highlighter-rouge">add_error</code> method signature and error hash structure.</li> </ul> <h2 id="custom-error-store"> <a href="#custom-error-store" class="anchor-heading" aria-labelledby="custom-error-store"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Custom error store </h2> <p>If you want to use your own custom error store then you can do it in this way:</p> <ul> <li>Define our own class with two public methods <ul> <li><code class="language-plaintext highlighter-rouge">#add_error(&lt;signature you want&gt;)</code> - method which adds error to <code class="language-plaintext highlighter-rouge">error_store</code></li> <li><code class="language-plaintext highlighter-rouge">#merge(error_store_to_merge)</code> - will be used by <code class="language-plaintext highlighter-rouge">Decouplio</code> to merge errors from inner actions to parent action.</li> <li>should have <code class="language-plaintext highlighter-rouge">attr_reader :errors</code></li> </ul> </li> </ul> <details><summary><b>EXAMPLE (CLICK ME)</b></summary> <p> <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">require</span> <span class="s1">'decouplio'</span>
+
+    <span class="k">class</span> <span class="nc">CustomErrorStore</span>
+      <span class="nb">attr_reader</span> <span class="ss">:errors</span>
+
+      <span class="k">def</span> <span class="nf">initialize</span>
+        <span class="vi">@errors</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">add_error</span><span class="p">(</span><span class="n">key</span><span class="p">:,</span> <span class="n">message</span><span class="p">:,</span> <span class="ss">namespace: :root</span><span class="p">)</span>
+        <span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">]</span> <span class="o">||=</span> <span class="p">{}</span>
+        <span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">].</span><span class="nf">store</span><span class="p">(</span>
+          <span class="n">key</span><span class="p">,</span>
+          <span class="p">(</span><span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">||</span> <span class="p">[])</span> <span class="o">+</span> <span class="p">[</span><span class="n">message</span><span class="p">].</span><span class="nf">flatten</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">error_store</span><span class="p">)</span>
+        <span class="vi">@errors</span> <span class="o">=</span> <span class="n">deep_merge</span><span class="p">(</span><span class="vi">@errors</span><span class="p">,</span> <span class="n">error_store</span><span class="p">.</span><span class="nf">errors</span><span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="kp">private</span>
+
+      <span class="k">def</span> <span class="nf">deep_merge</span><span class="p">(</span><span class="n">this_hash</span><span class="p">,</span> <span class="n">other_hash</span><span class="p">)</span>
+        <span class="n">this_hash</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">other_hash</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">_key</span><span class="p">,</span> <span class="n">this_val</span><span class="p">,</span> <span class="n">other_val</span><span class="o">|</span>
+          <span class="k">if</span> <span class="n">this_val</span><span class="p">.</span><span class="nf">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">other_val</span><span class="p">.</span><span class="nf">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span>
+            <span class="n">deep_merge</span><span class="p">(</span><span class="n">this_val</span><span class="p">,</span> <span class="n">other_val</span><span class="p">)</span>
+          <span class="k">else</span>
+            <span class="n">this_val</span> <span class="o">+</span> <span class="n">other_val</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">class</span> <span class="nc">SomeActionWithCustomErrorStore</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+      <span class="n">error_store_class</span> <span class="no">CustomErrorStore</span>
+
+      <span class="n">logic</span> <span class="k">do</span>
+        <span class="n">step</span> <span class="ss">:step_one</span>
+        <span class="n">step</span> <span class="ss">:step_two</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">step_one</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">add_error</span><span class="p">(</span>
+          <span class="ss">key: :under_root</span><span class="p">,</span>
+          <span class="ss">message: </span><span class="s1">'Error Message One'</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">step_two</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">add_error</span><span class="p">(</span>
+          <span class="ss">namespace: :step_two</span><span class="p">,</span>
+          <span class="ss">key: :error_happened</span><span class="p">,</span>
+          <span class="ss">message: </span><span class="s1">'Error Message Two'</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">action</span> <span class="o">=</span> <span class="no">SomeActionWithCustomErrorStore</span><span class="p">.</span><span class="nf">call</span>
+
+    <span class="n">action</span>  <span class="c1"># =&gt;</span>
+    <span class="c1"># Result: success</span>
+
+    <span class="c1"># Railway Flow:</span>
+    <span class="c1">#   step_one -&gt; step_two</span>
+
+    <span class="c1"># Context:</span>
+    <span class="c1">#   {}</span>
+
+    <span class="c1"># Errors:</span>
+      <span class="c1"># {:root=&gt;{:under_root=&gt;["Error Message One"]}, :step_two=&gt;{:error_happened=&gt;["Error Message Two"]}}</span>
+
+    <span class="n">action</span><span class="p">.</span><span class="nf">errors</span>  <span class="c1"># =&gt;</span>
+    <span class="c1"># {:root=&gt;{:under_root=&gt;["Error Message One"]}, :step_two=&gt;{:error_happened=&gt;["Error Message Two"]}}</span>
+  </code></pre></figure> </p> </details><hr /> <h2 id="custom-error-store-and-inner-action"> <a href="#custom-error-store-and-inner-action" class="anchor-heading" aria-labelledby="custom-error-store-and-inner-action"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Custom error store and inner action </h2> <h3 id="when-error-store-is-the-same-for-parent-and-inner-action"> <a href="#when-error-store-is-the-same-for-parent-and-inner-action" class="anchor-heading" aria-labelledby="when-error-store-is-the-same-for-parent-and-inner-action"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When error store is the same for parent and inner action </h3> <details><summary><b>EXAMPLE (CLICK ME)</b></summary> <p> <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">require</span> <span class="s1">'decouplio'</span>
+
+    <span class="k">class</span> <span class="nc">CustomErrorStore</span>
+      <span class="nb">attr_reader</span> <span class="ss">:errors</span>
+
+      <span class="k">def</span> <span class="nf">initialize</span>
+        <span class="vi">@errors</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">add_error</span><span class="p">(</span><span class="n">key</span><span class="p">:,</span> <span class="n">message</span><span class="p">:,</span> <span class="ss">namespace: :root</span><span class="p">)</span>
+        <span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">]</span> <span class="o">||=</span> <span class="p">{}</span>
+        <span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">].</span><span class="nf">store</span><span class="p">(</span>
+          <span class="n">key</span><span class="p">,</span>
+          <span class="p">(</span><span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">||</span> <span class="p">[])</span> <span class="o">+</span> <span class="p">[</span><span class="n">message</span><span class="p">].</span><span class="nf">flatten</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">error_store</span><span class="p">)</span>
+        <span class="vi">@errors</span> <span class="o">=</span> <span class="n">deep_merge</span><span class="p">(</span><span class="vi">@errors</span><span class="p">,</span> <span class="n">error_store</span><span class="p">.</span><span class="nf">errors</span><span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="kp">private</span>
+
+      <span class="k">def</span> <span class="nf">deep_merge</span><span class="p">(</span><span class="n">this_hash</span><span class="p">,</span> <span class="n">other_hash</span><span class="p">)</span>
+        <span class="n">this_hash</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">other_hash</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">_key</span><span class="p">,</span> <span class="n">this_val</span><span class="p">,</span> <span class="n">other_val</span><span class="o">|</span>
+          <span class="k">if</span> <span class="n">this_val</span><span class="p">.</span><span class="nf">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">other_val</span><span class="p">.</span><span class="nf">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span>
+            <span class="n">deep_merge</span><span class="p">(</span><span class="n">this_val</span><span class="p">,</span> <span class="n">other_val</span><span class="p">)</span>
+          <span class="k">else</span>
+            <span class="n">this_val</span> <span class="o">+</span> <span class="n">other_val</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">class</span> <span class="nc">InnerActionWithCustomErrorStore</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+      <span class="n">error_store_class</span> <span class="no">CustomErrorStore</span>
+
+      <span class="n">logic</span> <span class="k">do</span>
+        <span class="n">step</span> <span class="ss">:inner_step</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">inner_step</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">add_error</span><span class="p">(</span>
+          <span class="ss">namespace: :inner</span><span class="p">,</span>
+          <span class="ss">key: :inner_key</span><span class="p">,</span>
+          <span class="ss">message: </span><span class="s1">'Somebody was told me...'</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">class</span> <span class="nc">ParentActionWithCustomErrorStore</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+      <span class="n">error_store_class</span> <span class="no">CustomErrorStore</span>
+
+      <span class="n">logic</span> <span class="k">do</span>
+        <span class="n">step</span> <span class="ss">:step_one</span><span class="p">,</span> <span class="ss">action: </span><span class="no">InnerActionWithCustomErrorStore</span>
+        <span class="n">step</span> <span class="ss">:step_two</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">step_two</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">add_error</span><span class="p">(</span>
+          <span class="ss">namespace: :parent</span><span class="p">,</span>
+          <span class="ss">key: :error_happened</span><span class="p">,</span>
+          <span class="ss">message: </span><span class="s1">'Message'</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">action</span> <span class="o">=</span> <span class="no">ParentActionWithCustomErrorStore</span><span class="p">.</span><span class="nf">call</span>
+
+    <span class="n">action</span>  <span class="c1"># =&gt;</span>
+    <span class="c1"># Result: success</span>
+
+    <span class="c1"># Railway Flow:</span>
+    <span class="c1">#   step_one -&gt; inner_step -&gt; step_two</span>
+
+    <span class="c1"># Context:</span>
+    <span class="c1">#   {}</span>
+
+    <span class="c1"># Errors:</span>
+    <span class="c1">#   {:inner=&gt;{:inner_key=&gt;["Somebody was told me..."]}, :parent=&gt;{:error_happened=&gt;["Message"]}}</span>
+
+    <span class="n">action</span><span class="p">.</span><span class="nf">errors</span>  <span class="c1"># =&gt;</span>
+    <span class="c1"># {:inner=&gt;{:inner_key=&gt;["Somebody was told me..."]}, :parent=&gt;{:error_happened=&gt;["Message"]}}</span>
+  </code></pre></figure> </p> </details><hr /> <h3 id="when-error-store-is-different-for-parent-and-inner-action"> <a href="#when-error-store-is-different-for-parent-and-inner-action" class="anchor-heading" aria-labelledby="when-error-store-is-different-for-parent-and-inner-action"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> When error store is different for parent and inner action </h3> <p>If inner action error store is different from parent action error store then error will be raised.</p> <details><summary><b>EXAMPLE (CLICK ME)</b></summary> <p> <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">require</span> <span class="s1">'decouplio'</span>
+
+    <span class="k">class</span> <span class="nc">CustomErrorStore</span>
+      <span class="nb">attr_reader</span> <span class="ss">:errors</span>
+
+      <span class="k">def</span> <span class="nf">initialize</span>
+        <span class="vi">@errors</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">add_error</span><span class="p">(</span><span class="n">key</span><span class="p">:,</span> <span class="n">message</span><span class="p">:,</span> <span class="ss">namespace: :root</span><span class="p">)</span>
+        <span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">]</span> <span class="o">||=</span> <span class="p">{}</span>
+        <span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">].</span><span class="nf">store</span><span class="p">(</span>
+          <span class="n">key</span><span class="p">,</span>
+          <span class="p">(</span><span class="vi">@errors</span><span class="p">[</span><span class="n">namespace</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">||</span> <span class="p">[])</span> <span class="o">+</span> <span class="p">[</span><span class="n">message</span><span class="p">].</span><span class="nf">flatten</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">error_store</span><span class="p">)</span>
+        <span class="vi">@errors</span> <span class="o">=</span> <span class="n">deep_merge</span><span class="p">(</span><span class="vi">@errors</span><span class="p">,</span> <span class="n">error_store</span><span class="p">.</span><span class="nf">errors</span><span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="kp">private</span>
+
+      <span class="k">def</span> <span class="nf">deep_merge</span><span class="p">(</span><span class="n">this_hash</span><span class="p">,</span> <span class="n">other_hash</span><span class="p">)</span>
+        <span class="n">this_hash</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">other_hash</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">_key</span><span class="p">,</span> <span class="n">this_val</span><span class="p">,</span> <span class="n">other_val</span><span class="o">|</span>
+          <span class="k">if</span> <span class="n">this_val</span><span class="p">.</span><span class="nf">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">other_val</span><span class="p">.</span><span class="nf">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span>
+            <span class="n">deep_merge</span><span class="p">(</span><span class="n">this_val</span><span class="p">,</span> <span class="n">other_val</span><span class="p">)</span>
+          <span class="k">else</span>
+            <span class="n">this_val</span> <span class="o">+</span> <span class="n">other_val</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">class</span> <span class="nc">InnerActionWithDefaultErrorStore</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+      <span class="n">logic</span> <span class="k">do</span>
+        <span class="n">step</span> <span class="ss">:inner_step</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">inner_step</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">add_error</span><span class="p">(</span>
+          <span class="ss">key: :inner_key</span><span class="p">,</span>
+          <span class="ss">message: </span><span class="s1">'Somebody was told me...'</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">class</span> <span class="nc">ParentActionForInnerActionDefaultErrorStore</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+      <span class="n">error_store_class</span> <span class="no">CustomErrorStore</span>
+
+      <span class="n">logic</span> <span class="k">do</span>
+        <span class="n">step</span> <span class="ss">:step_one</span><span class="p">,</span> <span class="ss">action: </span><span class="no">InnerActionWithDefaultErrorStore</span>
+        <span class="n">step</span> <span class="ss">:step_two</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">step_two</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">add_error</span><span class="p">(</span>
+          <span class="ss">namespace: :parent</span><span class="p">,</span>
+          <span class="ss">key: :error_happened</span><span class="p">,</span>
+          <span class="ss">message: </span><span class="s1">'Message'</span>
+        <span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span> <span class="c1"># =&gt;</span>
+    <span class="c1"># Error store for action and inner action should be the same. (Decouplio::Errors::ErrorStoreError)</span>
+  </code></pre></figure> </p> </details><hr /> </div> </div> <div class="search-overlay"></div> </div> </body> </html>
