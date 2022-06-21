@@ -4,3 +4,7 @@
 
 layout: default
 ---
+
+# Decouplio
+
+Decouplio is a zero dependency, thread safe and framework agnostic gem designed to encapsulate application business logic. It's reverse engineered through TDD and inspired by such frameworks and gems like Trailblazer, Interactor.

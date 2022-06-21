@@ -27,8 +27,8 @@ description: >-
   business logic. It's reverse engineered
   through TDD and inspired by such frameworks
   and gems like Trailblazer, Interactor.
-baseurl: "/"
-url: "https://decouplio.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/decouplio.github.io"
+url: "https://differencialx.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: differencialx
 github_username:  differencialx
 aux_links:
