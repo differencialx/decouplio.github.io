@@ -33,7 +33,7 @@ twitter_username: differencialx
 github_username:  differencialx
 aux_links:
   "GitHub Repo":
-    - "//github.com/differencialx/decouplio"
+    - "https://github.com/differencialx/decouplio"
 # Build settings
 theme: just-the-docs
 logo: '/assets/images/logo_web.png'
