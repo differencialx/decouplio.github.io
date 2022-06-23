@@ -15,8 +15,9 @@ gem "jekyll"
 # If you have any plugins, put them here!
 gem "github-pages"
 gem "just-the-docs"
+
 group :jekyll_plugins do
-  # gem 'jekyll-spaceship'
+  gem 'jekyll-sitemap'
   gem 'jekyll-mermaid'
   gem 'kramdown-parser-gfm'
 end

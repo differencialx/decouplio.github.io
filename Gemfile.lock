@@ -266,6 +266,7 @@ DEPENDENCIES
   http_parser.rb (~> 0.6.0)
   jekyll
   jekyll-mermaid
+  jekyll-sitemap
   just-the-docs
   kramdown-parser-gfm
   tzinfo (~> 1.2)

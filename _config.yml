@@ -40,7 +40,7 @@ logo: '/assets/images/logo_web.png'
 
 plugins:
   - jekyll-mermaid
-  # - jekyll-spaceship
+  - jekyll-sitemap
 
 mermaid:
   src: '../vendor/mermaid.js'
