@@ -5,7 +5,6 @@ layout: table_wrappers
 <!DOCTYPE html>
 
 <html lang="{{ site.lang | default: 'en-US' }}">
-<meta name="google-site-verification" content="eieRXs5s7Hl5faw_lZmiNi5ax3DaryTW3QqCRzdkrd4" />
 {% include head.html %}
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
