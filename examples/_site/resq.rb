@@ -31,7 +31,7 @@ end
 
 success_action = SomeAction.call(lambda_for_step_one: -> { true })
 failure_action = SomeAction.call(lambda_for_step_one: -> { false })
-errored_action = SomeAction.call(
+erroneous_action = SomeAction.call(
   lambda_for_step_one: -> { raise ArgumentError, 'some error message' }
 )
 
@@ -57,7 +57,7 @@ puts failure_action # =>
 
 # Errors:
 #   {}
-puts errored_action # =>
+puts erroneous_action # =>
 # Result: failure
 
 # Railway Flow:

@@ -28,7 +28,7 @@
 
     <span class="n">success_action</span> <span class="o">=</span> <span class="no">SomeAction</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">lambda_for_step_one: </span><span class="o">-&gt;</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">})</span>
     <span class="n">failure_action</span> <span class="o">=</span> <span class="no">SomeAction</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">lambda_for_step_one: </span><span class="o">-&gt;</span> <span class="p">{</span> <span class="kp">false</span> <span class="p">})</span>
-    <span class="n">errored_action</span> <span class="o">=</span> <span class="no">SomeAction</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+    <span class="n">erroneous_action</span> <span class="o">=</span> <span class="no">SomeAction</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
       <span class="ss">lambda_for_step_one: </span><span class="o">-&gt;</span> <span class="p">{</span> <span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="s1">'some error message'</span> <span class="p">}</span>
     <span class="p">)</span>
 
@@ -54,7 +54,7 @@
 
     <span class="c1"># Errors:</span>
     <span class="c1">#   {}</span>
-    <span class="n">errored_action</span> <span class="c1"># =&gt;</span>
+    <span class="n">erroneous_action</span> <span class="c1"># =&gt;</span>
     <span class="c1"># Result: failure</span>
 
     <span class="c1"># Railway Flow:</span>

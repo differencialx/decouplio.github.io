@@ -625,3 +625,91 @@ condition_negative # =>
 
 # Errors:
 #   {}
+
+
+
+
+# on_error: next success track step
+
+class SomeActionOnErrorNextSuccessTrackStep < Decouplio::Action
+  logic do
+    step :step_one, on_error: :step_three
+    resq handle_step_one: ArgumentError
+    fail :fail_one
+    step :step_two
+    step :step_three
+  end
+
+  def step_one(step_one_lambda:, **)
+    ctx[:step_one] = step_one_lambda.call
+  end
+
+  def fail_one(**)
+    ctx[:fail_one] = 'Failure'
+  end
+
+  def step_two(**)
+    ctx[:step_two] = 'Success'
+  end
+
+  def step_three(**)
+    ctx[:step_three] = 'Success'
+  end
+
+  def handle_step_one(error, **)
+    ctx[:handle_step_one] = error.message
+  end
+end
+
+success_action = SomeActionOnErrorNextSuccessTrackStep.call(
+  step_one_lambda: -> { true }
+)
+failed_action = SomeActionOnErrorNextSuccessTrackStep.call(
+  step_one_lambda: -> { false }
+)
+erroneous_action = SomeActionOnErrorNextSuccessTrackStep.call(
+  step_one_lambda: -> { raise ArgumentError, 'Some message' }
+)
+
+success_action # =>
+# Result: success
+
+# Railway Flow:
+#   step_one -> step_two -> step_three
+
+# Context:
+#   :step_one_lambda => #<Proc:0x00007f1e4ae0aaa0 step.rb:664 (lambda)>
+#   :step_one => true
+#   :step_two => "Success"
+#   :step_three => "Success"
+
+# Errors:
+#   None
+
+failed_action # =>
+# Result: failure
+
+# Railway Flow:
+#   step_one -> fail_one
+
+# Context:
+#   :step_one_lambda => #<Proc:0x00007f1e4ae0a258 step.rb:665 (lambda)>
+#   :step_one => false
+#   :fail_one => "Failure"
+
+# Errors:
+#   None
+
+erroneous_action # =>
+# Result: success
+
+# Railway Flow:
+#   step_one -> handle_step_one -> step_three
+
+# Context:
+#   :step_one_lambda => #<Proc:0x00007f1e4ae09b78 step.rb:666 (lambda)>
+#   :handle_step_one => "Some message"
+#   :step_three => "Success"
+
+# Errors:
+#   None

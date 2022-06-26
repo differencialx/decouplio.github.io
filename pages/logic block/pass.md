@@ -90,6 +90,11 @@ pass(step_name, **options)
 
 ## Options
 
+### on_error: any value allowed for on_success or on_failure
+Behaves in the same way as [on_error for step](/decouplio.github.io/step/#on_error-)
+
+***
+
 ### if: condition method name
 Can be used in case if for some reason step shouldn't be executed
 

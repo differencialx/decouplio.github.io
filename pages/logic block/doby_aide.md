@@ -182,7 +182,7 @@ failure_action # =>
 ## Options
 
 ### Doby
-Has the same options and behavior as [step](https://differencialx.github.io/decouplio.github.io/step), just specify them along with doby class options like here:
+Has the same options and behavior as [step](/decouplio.github.io/step), just specify them along with doby class options like here:
 ```ruby
 # ...
 
@@ -198,7 +198,7 @@ end
 ```
 
 ### Aide
-Has the same options and behavior as [fail](https://differencialx.github.io/decouplio.github.io/fail), just specify them along with aide class options like here:
+Has the same options and behavior as [fail](/decouplio.github.io/fail), just specify them along with aide class options like here:
 
 ```ruby
 # ...

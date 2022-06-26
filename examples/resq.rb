@@ -31,11 +31,11 @@ end
 
 success_action = SomeAction.call(lambda_for_step_one: -> { true })
 failure_action = SomeAction.call(lambda_for_step_one: -> { false })
-errored_action = SomeAction.call(
+erroneous_action = SomeAction.call(
   lambda_for_step_one: -> { raise ArgumentError, 'some error message' }
 )
 
-puts success_action # =>
+success_action # =>
 # Result: success
 
 # Railway Flow:
@@ -46,7 +46,7 @@ puts success_action # =>
 
 # Errors:
 #   {}
-puts failure_action # =>
+failure_action # =>
 # Result: failure
 
 # Railway Flow:
@@ -57,7 +57,7 @@ puts failure_action # =>
 
 # Errors:
 #   {}
-puts errored_action # =>
+erroneous_action # =>
 # Result: failure
 
 # Railway Flow:
@@ -118,7 +118,7 @@ no_implemented_error_action = SomeActionSeveralHandlersErrorClasses.call(
   lambda_for_step_one: -> { raise NotImplementedError, 'NotImplementedError error message' }
 )
 
-puts success_action # =>
+success_action # =>
 # Result: success
 
 # Railway Flow:
@@ -130,7 +130,7 @@ puts success_action # =>
 # Errors:
 #   {}
 
-puts failure_action # =>
+failure_action # =>
 # Result: failure
 
 # Railway Flow:
@@ -141,7 +141,7 @@ puts failure_action # =>
 
 # Errors:
 #   {}
-puts argument_error_action # =>
+argument_error_action # =>
 # Result: failure
 
 # Railway Flow:
@@ -152,7 +152,7 @@ puts argument_error_action # =>
 
 # Errors:
 #   {}
-puts no_method_error_action # =>
+no_method_error_action # =>
 # Result: failure
 
 # Railway Flow:
@@ -163,7 +163,7 @@ puts no_method_error_action # =>
 
 # Errors:
 #   {}
-puts no_implemented_error_action # =>
+no_implemented_error_action # =>
 # Result: failure
 
 # Railway Flow:

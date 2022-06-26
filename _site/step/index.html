@@ -465,7 +465,91 @@
 
     <span class="c1"># Errors:</span>
     <span class="c1">#   {}</span>
-  </code></pre></figure> <script src="../vendor/mermaid.js"></script><div class="mermaid"> flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(step_two); 3(step_two)--&gt;|success track|4(finish_success); 3(step_two)--&gt;|failure track|5(finish_success); </div> </p> </details><hr /> <h3 id="on_failure-fail"> <a href="#on_failure-fail" class="anchor-heading" aria-labelledby="on_failure-fail"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> on_failure: :FAIL </h3> <p>It will perform like regular <code class="language-plaintext highlighter-rouge">step</code>, just move to next failure track step.</p><hr /> <h3 id="if-condition-method-name"> <a href="#if-condition-method-name" class="anchor-heading" aria-labelledby="if-condition-method-name"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> if: condition method name </h3> <p>Can be used in case if for some reason step shouldn’t be executed</p> <details><summary><b>EXAMPLE (CLICK ME)</b></summary> <p> <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">require</span> <span class="s1">'decouplio'</span>
+  </code></pre></figure> <script src="../vendor/mermaid.js"></script><div class="mermaid"> flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(step_two); 3(step_two)--&gt;|success track|4(finish_success); 3(step_two)--&gt;|failure track|5(finish_success); </div> </p> </details><hr /> <h3 id="on_failure-fail"> <a href="#on_failure-fail" class="anchor-heading" aria-labelledby="on_failure-fail"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> on_failure: :FAIL </h3> <p>It will perform like regular <code class="language-plaintext highlighter-rouge">step</code>, just move to next failure track step.</p><hr /> <h3 id="on_error-any-value-allowed-for-on_success-or-on_failure"> <a href="#on_error-any-value-allowed-for-on_success-or-on_failure" class="anchor-heading" aria-labelledby="on_error-any-value-allowed-for-on_success-or-on_failure"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> on_error: any value allowed for on_success or on_failure </h3> <p><code class="language-plaintext highlighter-rouge">on_error</code> option is used in case when <a href="/decouplio.github.io/resq">resq step</a> is applied to <code class="language-plaintext highlighter-rouge">step, fail, pass, wrap</code>. If step raises an error then handler method will be executed and after execution flow will directed to value you specified for <code class="language-plaintext highlighter-rouge">on_error</code> option.</p> <details><summary><b>EXAMPLE (CLICK ME)</b></summary> <p> <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">require</span> <span class="s1">'decouplio'</span>
+
+    <span class="k">class</span> <span class="nc">SomeActionOnErrorNextSuccessTrackStep</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+      <span class="n">logic</span> <span class="k">do</span>
+        <span class="n">step</span> <span class="ss">:step_one</span><span class="p">,</span> <span class="ss">on_error: :step_three</span>
+        <span class="n">resq</span> <span class="ss">handle_step_one: </span><span class="no">ArgumentError</span>
+        <span class="nb">fail</span> <span class="ss">:fail_one</span>
+        <span class="n">step</span> <span class="ss">:step_two</span>
+        <span class="n">step</span> <span class="ss">:step_three</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">step_one</span><span class="p">(</span><span class="n">step_one_lambda</span><span class="p">:,</span> <span class="o">**</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="p">[</span><span class="ss">:step_one</span><span class="p">]</span> <span class="o">=</span> <span class="n">step_one_lambda</span><span class="p">.</span><span class="nf">call</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">fail_one</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="p">[</span><span class="ss">:fail_one</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Failure'</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">step_two</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="p">[</span><span class="ss">:step_two</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Success'</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">step_three</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="p">[</span><span class="ss">:step_three</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Success'</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">handle_step_one</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="o">**</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="p">[</span><span class="ss">:handle_step_one</span><span class="p">]</span> <span class="o">=</span> <span class="n">error</span><span class="p">.</span><span class="nf">message</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">success_action</span> <span class="o">=</span> <span class="no">SomeActionOnErrorNextSuccessTrackStep</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+      <span class="ss">step_one_lambda: </span><span class="o">-&gt;</span> <span class="p">{</span> <span class="kp">true</span> <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">failed_action</span> <span class="o">=</span> <span class="no">SomeActionOnErrorNextSuccessTrackStep</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+      <span class="ss">step_one_lambda: </span><span class="o">-&gt;</span> <span class="p">{</span> <span class="kp">false</span> <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">erroneous_action</span> <span class="o">=</span> <span class="no">SomeActionOnErrorNextSuccessTrackStep</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span>
+      <span class="ss">step_one_lambda: </span><span class="o">-&gt;</span> <span class="p">{</span> <span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="s1">'Some message'</span> <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="n">success_action</span> <span class="c1"># =&gt;</span>
+    <span class="c1"># Result: success</span>
+
+    <span class="c1"># Railway Flow:</span>
+    <span class="c1">#   step_one -&gt; step_two -&gt; step_three</span>
+
+    <span class="c1"># Context:</span>
+    <span class="c1">#   :step_one_lambda =&gt; #&lt;Proc:0x00007f1e4ae0aaa0 step.rb:664 (lambda)&gt;</span>
+    <span class="c1">#   :step_one =&gt; true</span>
+    <span class="c1">#   :step_two =&gt; "Success"</span>
+    <span class="c1">#   :step_three =&gt; "Success"</span>
+
+    <span class="c1"># Errors:</span>
+    <span class="c1">#   None</span>
+
+    <span class="n">failed_action</span> <span class="c1"># =&gt;</span>
+    <span class="c1"># Result: failure</span>
+
+    <span class="c1"># Railway Flow:</span>
+    <span class="c1">#   step_one -&gt; fail_one</span>
+
+    <span class="c1"># Context:</span>
+    <span class="c1">#   :step_one_lambda =&gt; #&lt;Proc:0x00007f1e4ae0a258 step.rb:665 (lambda)&gt;</span>
+    <span class="c1">#   :step_one =&gt; false</span>
+    <span class="c1">#   :fail_one =&gt; "Failure"</span>
+
+    <span class="c1"># Errors:</span>
+    <span class="c1">#   None</span>
+
+    <span class="n">erroneous_action</span> <span class="c1"># =&gt;</span>
+    <span class="c1"># Result: success</span>
+
+    <span class="c1"># Railway Flow:</span>
+    <span class="c1">#   step_one -&gt; handle_step_one -&gt; step_three</span>
+
+    <span class="c1"># Context:</span>
+    <span class="c1">#   :step_one_lambda =&gt; #&lt;Proc:0x00007f1e4ae09b78 step.rb:666 (lambda)&gt;</span>
+    <span class="c1">#   :handle_step_one =&gt; "Some message"</span>
+    <span class="c1">#   :step_three =&gt; "Success"</span>
+
+    <span class="c1"># Errors:</span>
+    <span class="c1">#   None</span>
+  </code></pre></figure> <script src="../vendor/mermaid.js"></script><div class="mermaid"> flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(step_two); 3(step_two)--&gt;|success track|4(step_three); 4(step_three)--&gt;|success track|5(finish_success); 2(step_one)--&gt;|failure track|6(fail_one); 6(fail_one)--&gt;|failure track|7(finish_failure); 2(step_one)--&gt;|error track|8(handler_step_one); 8(handler_step_one)--&gt;|success track|4(step_three); </div> </p> </details><hr /> <h3 id="if-condition-method-name"> <a href="#if-condition-method-name" class="anchor-heading" aria-labelledby="if-condition-method-name"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> if: condition method name </h3> <p>Can be used in case if for some reason step shouldn’t be executed</p> <details><summary><b>EXAMPLE (CLICK ME)</b></summary> <p> <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">require</span> <span class="s1">'decouplio'</span>
 
     <span class="k">class</span> <span class="nc">SomeActionOnIfCondition</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
       <span class="n">logic</span> <span class="k">do</span>
@@ -599,4 +683,4 @@
 
     <span class="c1"># Errors:</span>
     <span class="c1">#   {}</span>
-  </code></pre></figure> <script src="../vendor/mermaid.js"></script><div class="mermaid"> flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|condition positive|3(step_two); 3(step_two)--&gt;|condition positive|4(finish_success); 2(step_one)--&gt;|condition negative|5(step_two); 5(step_two)--&gt;|condition negative|6(step_three); 6(step_three)--&gt;|condition negative|7(finish_success); </div> </p> </details><hr /> <h3 id="finish_him-on_success"> <a href="#finish_him-on_success" class="anchor-heading" aria-labelledby="finish_him-on_success"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> finish_him: :on_success </h3> <p>The same behavior as for <code class="language-plaintext highlighter-rouge">on_success: :finish_him</code></p> <h3 id="finish_him-on_failure"> <a href="#finish_him-on_failure" class="anchor-heading" aria-labelledby="finish_him-on_failure"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> finish_him: :on_failure </h3> <p>The same behavior as for <code class="language-plaintext highlighter-rouge">on_failure: :finish_him</code></p> </div> </div> <div class="search-overlay"></div> </div> </body> </html>
+  </code></pre></figure> <script src="../vendor/mermaid.js"></script><div class="mermaid"> flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|condition positive|3(step_two); 3(step_two)--&gt;|condition positive|4(finish_success); 2(step_one)--&gt;|condition negative|5(step_two); 5(step_two)--&gt;|condition negative|6(step_three); 6(step_three)--&gt;|condition negative|7(finish_success); </div> </p> </details><hr /> <h3 id="finish_him-on_success"> <a href="#finish_him-on_success" class="anchor-heading" aria-labelledby="finish_him-on_success"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> finish_him: :on_success </h3> <p>The same behavior as for <code class="language-plaintext highlighter-rouge">on_success: :finish_him</code></p><hr /> <h3 id="finish_him-on_failure"> <a href="#finish_him-on_failure" class="anchor-heading" aria-labelledby="finish_him-on_failure"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> finish_him: :on_failure </h3> <p>The same behavior as for <code class="language-plaintext highlighter-rouge">on_failure: :finish_him</code></p><hr /> <h3 id="finish_him-on_error"> <a href="#finish_him-on_error" class="anchor-heading" aria-labelledby="finish_him-on_error"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> finish_him: :on_error </h3> <p>The same behavior as for <code class="language-plaintext highlighter-rouge">on_error: :finish_him</code></p><hr /> </div> </div> <div class="search-overlay"></div> </div> </body> </html>

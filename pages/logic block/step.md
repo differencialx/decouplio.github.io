@@ -710,6 +710,116 @@ It will perform like regular `step`, just move to next failure track step.
 
 ***
 
+### on_error: any value allowed for on_success or on_failure
+`on_error` option is used in case when [resq step](/decouplio.github.io/resq) is applied to `step, fail, pass, wrap`.
+If step raises an error then handler method will be executed and after execution flow will directed to value you specified for `on_error` option.
+
+<details><summary><b>EXAMPLE (CLICK ME)</b></summary>
+<p>
+
+  {% highlight ruby %}
+    require 'decouplio'
+
+    class SomeActionOnErrorNextSuccessTrackStep < Decouplio::Action
+      logic do
+        step :step_one, on_error: :step_three
+        resq handle_step_one: ArgumentError
+        fail :fail_one
+        step :step_two
+        step :step_three
+      end
+
+      def step_one(step_one_lambda:, **)
+        ctx[:step_one] = step_one_lambda.call
+      end
+
+      def fail_one(**)
+        ctx[:fail_one] = 'Failure'
+      end
+
+      def step_two(**)
+        ctx[:step_two] = 'Success'
+      end
+
+      def step_three(**)
+        ctx[:step_three] = 'Success'
+      end
+
+      def handle_step_one(error, **)
+        ctx[:handle_step_one] = error.message
+      end
+    end
+
+    success_action = SomeActionOnErrorNextSuccessTrackStep.call(
+      step_one_lambda: -> { true }
+    )
+    failed_action = SomeActionOnErrorNextSuccessTrackStep.call(
+      step_one_lambda: -> { false }
+    )
+    erroneous_action = SomeActionOnErrorNextSuccessTrackStep.call(
+      step_one_lambda: -> { raise ArgumentError, 'Some message' }
+    )
+
+    success_action # =>
+    # Result: success
+
+    # Railway Flow:
+    #   step_one -> step_two -> step_three
+
+    # Context:
+    #   :step_one_lambda => #<Proc:0x00007f1e4ae0aaa0 step.rb:664 (lambda)>
+    #   :step_one => true
+    #   :step_two => "Success"
+    #   :step_three => "Success"
+
+    # Errors:
+    #   None
+
+    failed_action # =>
+    # Result: failure
+
+    # Railway Flow:
+    #   step_one -> fail_one
+
+    # Context:
+    #   :step_one_lambda => #<Proc:0x00007f1e4ae0a258 step.rb:665 (lambda)>
+    #   :step_one => false
+    #   :fail_one => "Failure"
+
+    # Errors:
+    #   None
+
+    erroneous_action # =>
+    # Result: success
+
+    # Railway Flow:
+    #   step_one -> handle_step_one -> step_three
+
+    # Context:
+    #   :step_one_lambda => #<Proc:0x00007f1e4ae09b78 step.rb:666 (lambda)>
+    #   :handle_step_one => "Some message"
+    #   :step_three => "Success"
+
+    # Errors:
+    #   None
+  {% endhighlight %}
+
+  {% mermaid %}
+  flowchart LR;
+      1(start)-->2(step_one);
+      2(step_one)-->|success track|3(step_two);
+      3(step_two)-->|success track|4(step_three);
+      4(step_three)-->|success track|5(finish_success);
+      2(step_one)-->|failure track|6(fail_one);
+      6(fail_one)-->|failure track|7(finish_failure);
+      2(step_one)-->|error track|8(handler_step_one);
+      8(handler_step_one)-->|success track|4(step_three);
+  {% endmermaid %}
+</p>
+</details>
+
+***
+
 ### if: condition method name
 Can be used in case if for some reason step shouldn't be executed
 
@@ -893,5 +1003,14 @@ Can be used in case if for some reason step shouldn't be executed
 ### finish_him: :on_success
 The same behavior as for `on_success: :finish_him`
 
+***
+
 ### finish_him: :on_failure
 The same behavior as for `on_failure: :finish_him`
+
+***
+
+### finish_him: :on_error
+The same behavior as for `on_error: :finish_him`
+
+***

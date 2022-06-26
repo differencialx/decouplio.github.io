@@ -65,7 +65,7 @@ resq(**options)
 
     success_action = SomeAction.call(lambda_for_step_one: -> { true })
     failure_action = SomeAction.call(lambda_for_step_one: -> { false })
-    errored_action = SomeAction.call(
+    erroneous_action = SomeAction.call(
       lambda_for_step_one: -> { raise ArgumentError, 'some error message' }
     )
 
@@ -91,7 +91,7 @@ resq(**options)
 
     # Errors:
     #   {}
-    errored_action # =>
+    erroneous_action # =>
     # Result: failure
 
     # Railway Flow:

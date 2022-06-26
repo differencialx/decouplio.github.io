@@ -38,4 +38,39 @@
 <span class="n">action</span><span class="p">.</span><span class="nf">failure?</span> <span class="c1"># =&gt; false</span>
 
 <span class="n">action</span><span class="p">.</span><span class="nf">railway_flow</span> <span class="c1"># =&gt; [:multiply, :divide]</span>
+
+<span class="c1"># OR</span>
+
+<span class="k">class</span> <span class="nc">RaisingAction</span> <span class="o">&lt;</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Action</span>
+  <span class="n">logic</span> <span class="k">do</span>
+    <span class="n">step</span> <span class="ss">:step_one</span>
+    <span class="n">step</span> <span class="ss">:step_two</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">step_one</span><span class="p">(</span><span class="n">step_one_param</span><span class="p">:,</span> <span class="o">**</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="p">[</span><span class="ss">:step_one</span><span class="p">]</span> <span class="o">=</span> <span class="n">step_one_param</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">step_two</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="p">[</span><span class="ss">:step_two</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Success'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">begin</span>
+  <span class="no">RaisingAction</span><span class="p">.</span><span class="nf">call!</span><span class="p">(</span><span class="ss">step_one_param: </span><span class="kp">false</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="no">Decouplio</span><span class="o">::</span><span class="no">Errors</span><span class="o">::</span><span class="no">ExecutionError</span> <span class="o">=&gt;</span> <span class="n">exception</span>
+  <span class="n">exception</span><span class="p">.</span><span class="nf">message</span> <span class="c1"># =&gt; Action failed.</span>
+  <span class="n">exception</span><span class="p">.</span><span class="nf">action</span> <span class="c1"># =&gt;</span>
+  <span class="c1"># Result: failure</span>
+
+  <span class="c1"># Railway Flow:</span>
+  <span class="c1">#   step_one</span>
+
+  <span class="c1"># Context:</span>
+  <span class="c1">#   :step_one_param =&gt; false</span>
+  <span class="c1">#   :step_one =&gt; false</span>
+
+  <span class="c1"># Errors:</span>
+  <span class="c1">#   None</span>
+<span class="k">end</span>
 </code></pre></div></div> </div> </div> <div class="search-overlay"></div> </div> </body> </html>
