@@ -91,7 +91,7 @@ pass(step_name, **options)
 ## Options
 
 ### on_error: any value allowed for on_success or on_failure
-Behaves in the same way as [on_error for step](/decouplio.github.io/step/#on_error-)
+Behaves in the same way as [on_error for step](/decouplio.github.io/step/#on_error-any-value-allowed-for-on_success-or-on_failure)
 
 ***
 

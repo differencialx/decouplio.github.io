@@ -239,7 +239,7 @@ The same as for [step](/decouplio.github.io/step)
 ### on_failure: :FAIL
 The same as for [step](/decouplio.github.io/step)
 ### on_error: any value allowed for on_success or on_failure
-Behaves in the same way as [on_error for step](/decouplio.github.io/step/#on_error-)
+Behaves in the same way as [on_error for step](/decouplio.github.io/step/#on_error-any-value-allowed-for-on_success-or-on_failure)
 ### if: condition method name
 The same as for [step](/decouplio.github.io/step)
 ### unless: condition method name
