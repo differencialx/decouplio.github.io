@@ -29,27 +29,34 @@ failure_action = SomeAction.call(param_for_step_one: false)
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one
 
 # Context:
-#   {:param_for_step_one=>true}
+#   :param_for_step_one => true
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 failure_action # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two
 
 # Context:
-#   {:param_for_step_one=>false, :action_failed=>true, :fail_two=>"Failure"}
+#   :param_for_step_one => false
+#   :action_failed => true
+#   :fail_two => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
+
 
 
 
@@ -89,38 +96,49 @@ fail_step_failure = SomeActionOnSuccessFinishHim.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one
 
 # Context:
-#   {:param_for_step_one=>true}
+#   :param_for_step_one => true
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_step_success # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>true, :action_failed=>true}
+#   :param_for_step_one => false
+#   :fail_one_param => true
+#   :action_failed => true
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_step_failure  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>false, :action_failed=>false, :fail_two=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => false
+#   :action_failed => false
+#   :fail_two => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -165,38 +183,51 @@ fail_step_failure = SomeActionOnSuccessToSuccessTrack.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_step_success # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>true, :action_failed=>true, :step_two=>"Success"}
+#   :param_for_step_one => false
+#   :fail_one_param => true
+#   :action_failed => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_step_failure  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>false, :action_failed=>false, :fail_two=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => false
+#   :action_failed => false
+#   :fail_two => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -246,40 +277,52 @@ fail_step_failure = SomeActionOnSuccessToFailureTrack.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
-
+#   NONE
 
 fail_step_success # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>true, :action_failed=>true, :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => true
+#   :action_failed => true
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
-
+#   NONE
 
 fail_step_failure  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>false, :action_failed=>false, :fail_two=>"Failure", :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => false
+#   :action_failed => false
+#   :fail_two => "Failure"
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -305,7 +348,7 @@ fail_step_failure = SomeActionOnSuccessPass.call(fail_one_param: false)
 fail_step_success # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
@@ -313,13 +356,15 @@ fail_step_success # =>
 #   :step_one => false
 #   :fail_one => true
 
+# Status: NONE
+
 # Errors:
-#   {}
+#   NONE
 
 fail_step_failure # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
@@ -327,9 +372,10 @@ fail_step_failure # =>
 #   :step_one => false
 #   :fail_one => false
 
-# Errors:
-#   {}
+# Status: NONE
 
+# Errors:
+#   NONE
 
 
 
@@ -374,40 +420,52 @@ fail_step_failure = SomeActionOnFailureFinishHim.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 fail_step_success # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>true, :action_failed=>true, :fail_two=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => true
+#   :action_failed => true
+#   :fail_two => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 fail_step_failure  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>false, :action_failed=>false}
+#   :param_for_step_one => false
+#   :fail_one_param => false
+#   :action_failed => false
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -452,39 +510,52 @@ fail_step_failure = SomeActionOnFailureToSuccessTrack.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_step_success # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>true, :action_failed=>true, :fail_two=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => true
+#   :action_failed => true
+#   :fail_two => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 fail_step_failure  # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>false, :action_failed=>false, :step_two=>"Success"}
+#   :param_for_step_one => false
+#   :fail_one_param => false
+#   :action_failed => false
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -534,36 +605,51 @@ fail_step_failure = SomeActionOnFailureToFailureTrack.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 fail_step_success # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>true, :action_failed=>true, :fail_two=>"Failure", :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => true
+#   :action_failed => true
+#   :fail_two => "Failure"
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
+
 fail_step_failure  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>false, :action_failed=>false, :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :fail_one_param => false
+#   :action_failed => false
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -589,28 +675,32 @@ fail_step_failure = SomeActionOnFailurePass.call(fail_one_param: false)
 fail_step_success # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
 #   :fail_one_param => true
 #   :fail_one => true
 
+# Status: NONE
+
 # Errors:
-#   {}
+#   NONE
 
 fail_step_failure # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
 #   :fail_one_param => false
 #   :fail_one => false
 
+# Status: NONE
+
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -664,38 +754,52 @@ fail_condition_negative = SomeActionOnIfCondition.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_condition_positive # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :if_condition_param=>true, :action_failed=>true, :fail_two=>"Failure", :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :if_condition_param => true
+#   :action_failed => true
+#   :fail_two => "Failure"
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_condition_negative  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :if_condition_param=>false, :action_failed=>true, :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :if_condition_param => false
+#   :action_failed => true
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -749,38 +853,53 @@ fail_condition_negative = SomeActionOnUnlessCondition.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
+
 
 fail_condition_positive # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_two -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :if_condition_param=>false, :action_failed=>true, :fail_two=>"Failure", :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :if_condition_param => false
+#   :action_failed => true
+#   :fail_two => "Failure"
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_condition_negative  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one -> fail_three
 
 # Context:
-#   {:param_for_step_one=>false, :if_condition_param=>true, :action_failed=>true, :fail_three=>"Failure"}
+#   :param_for_step_one => false
+#   :if_condition_param => true
+#   :action_failed => true
+#   :fail_three => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -825,35 +944,47 @@ fail_step_failure = SomeActionFinishHimTrue.call(
 success_action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:param_for_step_one=>true, :step_two=>"Success"}
+#   :param_for_step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
+
 
 fail_step_success # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>true, :action_failed=>true}
+#   :param_for_step_one => false
+#   :fail_one_param => true
+#   :action_failed => true
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 fail_step_failure  # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_one
 
 # Context:
-#   {:param_for_step_one=>false, :fail_one_param=>false, :action_failed=>false}
+#   :param_for_step_one => false
+#   :fail_one_param => false
+#   :action_failed => false
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE

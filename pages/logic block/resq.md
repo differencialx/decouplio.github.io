@@ -72,36 +72,49 @@ resq(**options)
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000561525a05628 resq.rb:32 (lambda)>, :step_one=>true, :step_two=>"Success"}
+    #   :lambda_for_step_one => #<Proc:0x000055cd61ed4318 resq.rb:32 (lambda)>
+    #   :step_one => true
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_one
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000561525a04f48 resq.rb:33 (lambda)>, :step_one=>false, :fail_one=>"Failure"}
+    #   :lambda_for_step_one => #<Proc:0x000055cd61eccac8 resq.rb:33 (lambda)>
+    #   :step_one => false
+    #   :fail_one => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
+
     erroneous_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> handler_method -> fail_one
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000561525a04b60 resq.rb:35 (lambda)>, :error=>"some error message", :fail_one=>"Failure"}
+    #   :lambda_for_step_one => #<Proc:0x000055cd61ebf5d0 resq.rb:35 (lambda)>
+    #   :error => "some error message"
+    #   :fail_one => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -177,59 +190,80 @@ resq(**options)
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000557a7149f638 resq.rb:106 (lambda)>, :step_one=>true, :step_two=>"Success"}
+    #   :lambda_for_step_one => #<Proc:0x000055cac05811d8 resq.rb:119 (lambda)>
+    #   :step_one => true
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_one
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000557a7149f390 resq.rb:109 (lambda)>, :step_one=>false, :fail_one=>"Failure"}
+    #   :lambda_for_step_one => #<Proc:0x000055cac0580eb8 resq.rb:122 (lambda)>
+    #   :step_one => false
+    #   :fail_one => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
+
     argument_error_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> handler_method_one -> fail_one
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000557a7149f138 resq.rb:112 (lambda)>, :error=>"Argument error message", :fail_one=>"Failure"}
+    #   :lambda_for_step_one => #<Proc:0x000055cac0580bc0 resq.rb:125 (lambda)>
+    #   :error => "Argument error message"
+    #   :fail_one => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
     no_method_error_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> handler_method_one -> fail_one
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000557a7149edc8 resq.rb:115 (lambda)>, :error=>"NoMethodError error message", :fail_one=>"Failure"}
+    #   :lambda_for_step_one => #<Proc:0x000055cac05807d8 resq.rb:128 (lambda)>
+    #   :error => "NoMethodError error message"
+    #   :fail_one => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
     no_implemented_error_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> handler_method_two -> fail_one
 
     # Context:
-    #   {:lambda_for_step_one=>#<Proc:0x0000557a7149e8c8 resq.rb:118 (lambda)>, :error=>"NotImplementedError error message", :fail_one=>"Failure"}
+    #   :lambda_for_step_one => #<Proc:0x000055cac0573ec0 resq.rb:131 (lambda)>
+    #   :error => "NotImplementedError error message"
+    #   :fail_one => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}

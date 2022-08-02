@@ -24,29 +24,37 @@ end
 pass_success = SomeAction.call(param_for_pass: true)
 pass_failure = SomeAction.call(param_for_pass: false)
 
-puts pass_success # =>
+pass_success # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   pass_one -> step_two
 
 # Context:
-#   {:param_for_pass=>true, :pass_one=>true, :step_two=>"Success"}
+#   :param_for_pass => true
+#   :pass_one => true
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
-puts pass_failure # =>
+pass_failure # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   pass_one -> step_two
 
 # Context:
-#   {:param_for_pass=>false, :pass_one=>false, :step_two=>"Success"}
+#   :param_for_pass => false
+#   :pass_one => false
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -78,30 +86,39 @@ end
 condition_positive = SomeActionIfCondition.call(condition_param: true)
 condition_negative = SomeActionIfCondition.call(condition_param: false)
 
-puts condition_positive # =>
+condition_positive # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> pass_one -> step_two
 
 # Context:
-#   {:condition_param=>true, :step_one=>"Success", :pass_one=>"Success", :step_two=>"Success"}
+#   :condition_param => true
+#   :step_one => "Success"
+#   :pass_one => "Success"
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
-puts condition_negative # =>
+condition_negative # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:condition_param=>false, :step_one=>"Success", :step_two=>"Success"}
+#   :condition_param => false
+#   :step_one => "Success"
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -133,29 +150,38 @@ end
 condition_positive = SomeActionUnlessCondition.call(condition_param: false)
 condition_negative = SomeActionUnlessCondition.call(condition_param: true)
 
-puts condition_positive # =>
+condition_positive # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> pass_one -> step_two
 
 # Context:
-#   {:condition_param=>false, :step_one=>"Success", :pass_one=>"Success", :step_two=>"Success"}
+#   :condition_param => false
+#   :step_one => "Success"
+#   :pass_one => "Success"
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
-puts condition_negative # =>
+condition_negative # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:condition_param=>true, :step_one=>"Success", :step_two=>"Success"}
+#   :condition_param => true
+#   :step_one => "Success"
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -188,26 +214,35 @@ end
 success_track = SomeActionFinishHim.call(param_for_step: true)
 failure_track = SomeActionFinishHim.call(param_for_step: false)
 
-puts success_track # =>
+success_track # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two -> step_three
 
 # Context:
-#   {:param_for_step=>true, :step_one=>true, :step_two=>"Success", :step_three=>"Success"}
+#   :param_for_step => true
+#   :step_one => true
+#   :step_two => "Success"
+#   :step_three => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
-puts failure_track # =>
+failure_track # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> pass_one
 
 # Context:
-#   {:param_for_step=>false, :step_one=>false, :pass_one=>"Success"}
+#   :param_for_step => false
+#   :step_one => false
+#   :pass_one => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE

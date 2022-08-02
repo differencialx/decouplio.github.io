@@ -34,14 +34,17 @@ action = SomeAction.call
 action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:step_one=>"Step one ctx value", :step_two=>"Step one ctx value"}
+#   :step_one => "Step one ctx value"
+#   :step_two => "Step one ctx value"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 ```
 
 All key values passed into `call` method will be automatically assigned to action context.
@@ -71,12 +74,16 @@ action[:result] # => 3
 action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one
 
 # Context:
-#   {:one=>1, :two=>2, :result=>3}
+#   :one => 1
+#   :two => 2
+#   :result => 3
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 ```

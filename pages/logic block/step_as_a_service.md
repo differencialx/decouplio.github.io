@@ -22,6 +22,7 @@ It's similar to [Inner action](/decouplio.github.io/inner_action), but instead o
 - service class can be used as `step` or `fail` or `pass`
 - all options of `step|fail|pass` can be used as for [Inner action](/decouplio.github.io/inner_action)
 - depending on returning value of `.call` method(truthy ot falsy) the execution will be moved to `success or failure` track accordingly.
+- All options passed after class constant will be passed as kwargs into `.call` method, except default step/fail/pass options like `on_success`, `on_failure`, `on_error`, `finish_him`, `if`, `unless`
 
 ## How to use?
 
@@ -29,8 +30,7 @@ Create a PORO class with `.call` class method.
 
 ```ruby
 # :ctx - it's a ctx from Decouplio::Action
-# :error_store - it's an error_store from Decouplio::Action,
-#                you can call #add_error on it
+# :ms - it's an meta_store from Decouplio::Action
 class Concat
   def self.call(ctx:, **)
     new(ctx: ctx).call
@@ -48,8 +48,7 @@ end
 # OR
 
 # :ctx - it's a ctx from Decouplio::Action
-# :error_store - it's an error_store from Decouplio::Action,
-#                you can call #add_error on it
+# :ms - it's an meta_store from Decouplio::Action
 class Subtract
   def self.call(ctx:, **)
     ctx[:result] = ctx[:one] - ctx[:two]
@@ -58,11 +57,14 @@ end
 
 # OR
 
+# :ctx - it's a ctx from Decouplio::Action
+# :ms - it's an meta_store from Decouplio::Action
 class MakeRequest
-  def self.call(ctx:, error_store:)
+  def self.call(ctx:, ms:)
     ctx[:client].get(ctx[:url])
   rescue Net::OpenTimeout => error
-    error_store.add_error(:connection_error, error.message)
+    ms.status = :timeout_error
+    ms.add_error(:connection_error, error.message)
   end
 end
 ```
@@ -78,19 +80,23 @@ end
 
 action = SomeActionConcat.call(one: 1, two: 2)
 
-puts action[:result] # => 3
+action[:result] # => 3
 
-puts action # =>
+action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   Concat
 
 # Context:
-#   {:one=>1, :two=>2, :result=>3}
+#   :one => 1
+#   :two => 2
+#   :result => 3
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 ```
 
 OR
@@ -114,18 +120,92 @@ end
 
 action = SomeActionSubtract.call(param_one: 5, param_two: 2)
 
-puts action[:result] # => 3
+action[:result] # => 3
 
-puts action # =>
+action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   init_one -> init_two -> Subtract
 
 # Context:
-#   {:param_one=>5, :param_two=>2, :one=>5, :two=>2, :result=>3}
+#   :param_one => 5
+#   :param_two => 2
+#   :one => 5
+#   :two => 2
+#   :result => 3
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
+```
+
+### Example With additional options
+
+```ruby
+require 'decouplio'
+
+class Semantic
+  def self.call(ctx:, ms:, semantic:, error_message:)
+    ms.status = semantic
+    ms.add_error(semantic, error_message)
+  end
+end
+
+class SomeAction < Decouplio::Action
+  logic do
+    step :step_one
+    fail Semantic, semantic: :bad_request, error_message: 'Bad request'
+    step :step_two
+  end
+
+  def step_one(step_one_param:, **)
+    ctx[:step_one] = step_one_param
+  end
+
+  def step_two(**)
+    ctx[:step_two] = 'Success'
+  end
+
+  def fail_one(**)
+    ctx[:fail_one] = 'Failure'
+  end
+end
+
+success_action = SomeAction.call(step_one_param: true)
+failure_action = SomeAction.call(step_one_param: false)
+
+success_action # =>
+# Result: success
+
+# RailwayFlow:
+#   step_one -> step_two
+
+# Context:
+#   :step_one_param => true
+#   :step_one => true
+#   :step_two => "Success"
+
+# Status: NONE
+
+# Errors:
+#   NONE
+
+
+failure_action # =>
+# Result: failure
+
+# RailwayFlow:
+#   step_one -> Semantic
+
+# Context:
+#   :step_one_param => false
+#   :step_one => false
+
+# Status: bad_request
+
+# Errors:
+#   :bad_request => ["Bad request"]
 ```

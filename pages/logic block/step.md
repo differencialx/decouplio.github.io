@@ -53,26 +53,32 @@ step(step_name, **options)
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:param_for_step_one=>true, :result=>"Success"}
+    #   :param_for_step_one => true
+    #   :result => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_one
 
     # Context:
-    #   {:param_for_step_one=>false, :action_failed=>true}
+    #   :param_for_step_one => false
+    #   :action_failed => true
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -133,26 +139,31 @@ step(step_name, **options)
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one
 
     # Context:
-    #   {:param_for_step_one=>true}
+    #   :param_for_step_one => true
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_one
 
     # Context:
-    #   {:param_for_step_one=>false, :action_failed=>true}
+    #   :param_for_step_one => false
+    #   :action_failed => true
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -205,26 +216,33 @@ step(step_name, **options)
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_three
 
     # Context:
-    #   {:param_for_step_one=>true, :result=>"Result"}
+    #   :param_for_step_one => true
+    #   :result => "Result"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
+
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_one
 
     # Context:
-    #   {:param_for_step_one=>false, :action_failed=>true}
+    #   :param_for_step_one => false
+    #   :action_failed => true
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -286,26 +304,34 @@ Can be used if for some reason you need to jump to fail step
     success_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_two
 
     # Context:
-    #   {:param_for_step_one=>true, :fail_two=>"Failure"}
+    #   :param_for_step_one => true
+    #   :fail_two => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
+
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_one -> fail_two
 
     # Context:
-    #   {:param_for_step_one=>false, :action_failed=>true, :fail_two=>"Failure"}
+    #   :param_for_step_one => false
+    #   :action_failed => true
+    #   :fail_two => "Failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -355,7 +381,7 @@ It will perform next failure track step OR finish action as `failure` in case if
     success_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
@@ -363,13 +389,16 @@ It will perform next failure track step OR finish action as `failure` in case if
     #   :step_one => "Success"
     #   :step_two => true
 
+    # Status: NONE
+
     # Errors:
-    #   {}
+    #   NONE
+
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
@@ -377,8 +406,10 @@ It will perform next failure track step OR finish action as `failure` in case if
     #   :step_one => "Success"
     #   :step_two => false
 
+    # Status: NONE
+
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -441,26 +472,31 @@ It will perform next failure track step OR finish action as `failure` in case if
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:param_for_step_one=>true, :result=>"Success"}
+    #   :param_for_step_one => true
+    #   :result => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one
 
     # Context:
-    #   {:param_for_step_one=>false}
+    #   :param_for_step_one => false
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -520,27 +556,34 @@ Can be used in case if you need to come back to success track
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two -> step_three
 
     # Context:
-    #   {:param_for_step_one=>true, :result=>"Success", :step_three=>"Success"}
+    #   :param_for_step_one => true
+    #   :result => "Success"
+    #   :step_three => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
 
     failure_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_three
 
     # Context:
-    #   {:param_for_step_one=>false, :step_three=>"Success"}
+    #   :param_for_step_one => false
+    #   :step_three => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -599,26 +642,34 @@ Can be used in case if you need to come back to success track
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two -> step_three
 
     # Context:
-    #   {:param_for_step_one=>true, :result=>"Success", :step_three=>"Success"}
+    #   :param_for_step_one => true
+    #   :result => "Success"
+    #   :step_three => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
+
 
     failure_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_two
 
     # Context:
-    #   {:param_for_step_one=>false, :fail_two=>"failure"}
+    #   :param_for_step_one => false
+    #   :fail_two => "failure"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -666,7 +717,7 @@ It will perform next success track step OR finish action as `success` if it's th
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
@@ -674,13 +725,16 @@ It will perform next success track step OR finish action as `success` if it's th
     #   :step_one => true
     #   :step_two => true
 
+    # Status: NONE
+
     # Errors:
-    #   {}
+    #   NONE
+
 
     failure_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
@@ -688,8 +742,10 @@ It will perform next success track step OR finish action as `success` if it's th
     #   :step_one => true
     #   :step_two => false
 
+    # Status: NONE
+
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -763,45 +819,53 @@ If step raises an error then handler method will be executed and after execution
     success_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two -> step_three
 
     # Context:
-    #   :step_one_lambda => #<Proc:0x00007f1e4ae0aaa0 step.rb:664 (lambda)>
+    #   :step_one_lambda => #<Proc:0x0000565032135d98 step.rb:742 (lambda)>
     #   :step_one => true
     #   :step_two => "Success"
     #   :step_three => "Success"
 
+    # Status: NONE
+
     # Errors:
-    #   None
+    #   NONE
+
 
     failed_action # =>
     # Result: failure
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> fail_one
 
     # Context:
-    #   :step_one_lambda => #<Proc:0x00007f1e4ae0a258 step.rb:665 (lambda)>
+    #   :step_one_lambda => #<Proc:0x0000565032135938 step.rb:745 (lambda)>
     #   :step_one => false
     #   :fail_one => "Failure"
 
+    # Status: NONE
+
     # Errors:
-    #   None
+    #   NONE
+
 
     erroneous_action # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> handle_step_one -> step_three
 
     # Context:
-    #   :step_one_lambda => #<Proc:0x00007f1e4ae09b78 step.rb:666 (lambda)>
+    #   :step_one_lambda => #<Proc:0x0000565032135398 step.rb:748 (lambda)>
     #   :handle_step_one => "Some message"
     #   :step_three => "Success"
 
+    # Status: NONE
+
     # Errors:
-    #   None
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -874,26 +938,36 @@ Can be used in case if for some reason step shouldn't be executed
     condition_positive # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two -> step_three
 
     # Context:
-    #   {:param_for_step_one=>true, :step_condition_param=>true, :result=>"Success", :step_three=>"Success"}
+    #   :param_for_step_one => true
+    #   :step_condition_param => true
+    #   :result => "Success"
+    #   :step_three => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
+
 
     condition_negative # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:param_for_step_one=>true, :step_condition_param=>false, :result=>"Success"}
+    #   :param_for_step_one => true
+    #   :step_condition_param => false
+    #   :result => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}
@@ -964,26 +1038,36 @@ Can be used in case if for some reason step shouldn't be executed
     condition_positive # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:param_for_step_one=>true, :step_condition_param=>true, :result=>"Success"}
+    #   :param_for_step_one => true
+    #   :step_condition_param => true
+    #   :result => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
+
 
     condition_negative # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two -> step_three
 
     # Context:
-    #   {:param_for_step_one=>true, :step_condition_param=>false, :result=>"Success", :step_three=>"Success"}
+    #   :param_for_step_one => true
+    #   :step_condition_param => false
+    #   :result => "Success"
+    #   :step_three => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
   {% mermaid %}

@@ -46,14 +46,17 @@ action = SomeAction.call
 action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   InnerAction -> step_one -> step_two
 
 # Context:
-#   {:step_one=>"Success", :step_two=>"Success"}
+#   :step_one => "Success"
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 ```
 
 {% mermaid %}

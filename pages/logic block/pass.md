@@ -52,26 +52,34 @@ pass(step_name, **options)
     pass_success # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   pass_one -> step_two
 
     # Context:
-    #   {:param_for_pass=>true, :pass_one=>true, :step_two=>"Success"}
+    #   :param_for_pass => true
+    #   :pass_one => true
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
     pass_failure # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   pass_one -> step_two
 
     # Context:
-    #   {:param_for_pass=>false, :pass_one=>false, :step_two=>"Success"}
+    #   :param_for_pass => false
+    #   :pass_one => false
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
 {% mermaid %}
@@ -134,27 +142,36 @@ Can be used in case if for some reason step shouldn't be executed
     condition_positive # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> pass_one -> step_two
 
     # Context:
-    #   {:condition_param=>true, :step_one=>"Success", :pass_one=>"Success", :step_two=>"Success"}
+    #   :condition_param => true
+    #   :step_one => "Success"
+    #   :pass_one => "Success"
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
 
     condition_negative # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:condition_param=>false, :step_one=>"Success", :step_two=>"Success"}
+    #   :condition_param => false
+    #   :step_one => "Success"
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
 {% mermaid %}
@@ -209,26 +226,35 @@ Can be used in case if for some reason step shouldn't be executed
     condition_positive # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> pass_one -> step_two
 
     # Context:
-    #   {:condition_param=>false, :step_one=>"Success", :pass_one=>"Success", :step_two=>"Success"}
+    #   :condition_param => false
+    #   :step_one => "Success"
+    #   :pass_one => "Success"
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
     condition_negative # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two
 
     # Context:
-    #   {:condition_param=>true, :step_one=>"Success", :step_two=>"Success"}
+    #   :condition_param => true
+    #   :step_one => "Success"
+    #   :step_two => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
 {% mermaid %}
@@ -285,26 +311,35 @@ Can be used in case if for some reason step shouldn't be executed
     success_track # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> step_two -> step_three
 
     # Context:
-    #   {:param_for_step=>true, :step_one=>true, :step_two=>"Success", :step_three=>"Success"}
+    #   :param_for_step => true
+    #   :step_one => true
+    #   :step_two => "Success"
+    #   :step_three => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
 
     failure_track # =>
     # Result: success
 
-    # Railway Flow:
+    # RailwayFlow:
     #   step_one -> pass_one
 
     # Context:
-    #   {:param_for_step=>false, :step_one=>false, :pass_one=>"Success"}
+    #   :param_for_step => false
+    #   :step_one => false
+    #   :pass_one => "Success"
+
+    # Status: NONE
 
     # Errors:
-    #   {}
+    #   NONE
   {% endhighlight %}
 
 {% mermaid %}

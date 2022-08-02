@@ -18,18 +18,20 @@ end
 
 action = SomeAction.call
 
-puts action # =>
+action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> step_two
 
 # Context:
-#   {:step_one=>"Step one ctx value", :step_two=>"Step one ctx value"}
+#   :step_one => "Step one ctx value"
+#   :step_two => "Step one ctx value"
+
+# Status: NONE
 
 # Errors:
-#   {}
-
+#   NONE
 
 class SomeActionCtx < Decouplio::Action
   logic do
@@ -37,7 +39,6 @@ class SomeActionCtx < Decouplio::Action
   end
 
   def step_one(**)
-    puts ctx
     ctx[:result] = ctx[:one] + ctx[:two]
   end
 end
@@ -49,14 +50,18 @@ action = SomeActionCtx.call(
 
 action[:result] # => 3
 
-puts action # =>
+action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one
 
 # Context:
-#   {:one=>1, :two=>2, :result=>3}
+#   :one => 1
+#   :two => 2
+#   :result => 3
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE

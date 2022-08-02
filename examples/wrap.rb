@@ -48,42 +48,59 @@ failure = SomeAction.call(
   param_for_step_one: false
 )
 
-puts success_wrap_success # =>
+success_wrap_success # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> wrap_one -> step_two -> step_three
 
 # Context:
-#   {:param_for_step_one=>true, :param_for_step_two=>true, :step_one=>true, :step_two=>true, :step_three=>"Success"}
+#   :param_for_step_one => true
+#   :param_for_step_two => true
+#   :step_one => true
+#   :step_two => true
+#   :step_three => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
-puts success_wrap_failure # =>
+success_wrap_failure # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> wrap_one -> step_two -> fail_one -> fail_two
 
 # Context:
-#   {:param_for_step_one=>true, :param_for_step_two=>false, :step_one=>true, :step_two=>false, :fail_one=>"Fail one failure", :fail_two=>"Fail two failure"}
+#   :param_for_step_one => true
+#   :param_for_step_two => false
+#   :step_one => true
+#   :step_two => false
+#   :fail_one => "Fail one failure"
+#   :fail_two => "Fail two failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
-puts failure # =>
+failure # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   step_one -> fail_two
 
 # Context:
-#   {:param_for_step_one=>false, :step_one=>false, :fail_two=>"Fail two failure"}
+#   :param_for_step_one => false
+#   :step_one => false
+#   :fail_two => "Fail two failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE
 
 
 
@@ -124,14 +141,17 @@ action = SomeActionWrapKlassMethod.call # =>
 # Step two
 # After wrapper action execution
 
-puts action # =>
+action # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   wrap_one -> step_one -> step_two
 
 # Context:
-#   {:step_one=>"Success", :step_two=>"Success"}
+#   :step_one => "Success"
+#   :step_two => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE

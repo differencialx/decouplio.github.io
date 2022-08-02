@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Doby/Aide
+title: Doby/Aide(DEPRECATED)
 permalink: /doby_aide/
 parent: Logic block
 nav_order: 7
 ---
 
-# Doby/Aide
+# Doby/Aide (DEPRECATED, use step/fail instead, can be used for alpha-alpha7 versions)
 
 Steps which make configurable manipulations with action context.
 

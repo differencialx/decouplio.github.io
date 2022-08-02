@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Error store
+title: Error store(DEPRECATED)
 permalink: /error_store/
 nav_order: 4
 ---
 
-# Error store
+# Error store(DEPRECATED, can be used only for alpha-alpha7 versions)
 
 It's an object to store errors. By default `Decouplio::DefaultErrorHandler` is used for `Decouplio::Action`
 

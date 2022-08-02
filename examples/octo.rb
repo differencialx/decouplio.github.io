@@ -96,69 +96,118 @@ octo_option_three_failure = SomeAction.call(
   param_for_step_one: false,
   param_for_step_three: true
 )
-puts octo_option_one_success # =>
+octo_option_one_success # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   init_step -> my_octo -> step_one -> step_two -> final_step
 
 # Context:
-#   {:octo_key=>:option_one, :param_for_step_one=>true, :param_for_step_two=>true, :custom_key=>:option_one, :step_one=>true, :step_two=>true, :final_step=>"Success"}
+#   :octo_key => :option_one
+#   :param_for_step_one => true
+#   :param_for_step_two => true
+#   :custom_key => :option_one
+#   :step_one => true
+#   :step_two => true
+#   :final_step => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
-puts octo_option_one_failure # =>
+#   NONE
+octo_option_one_failure # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   init_step -> my_octo -> step_one -> final_step
 
 # Context:
-#   {:octo_key=>:option_one, :param_for_step_one=>false, :param_for_step_two=>true, :custom_key=>:option_one, :step_one=>false, :final_step=>"Success"}
+#   :octo_key => :option_one
+#   :param_for_step_one => false
+#   :param_for_step_two => true
+#   :custom_key => :option_one
+#   :step_one => false
+#   :final_step => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
-puts octo_option_two_success # =>
+#   NONE
+octo_option_two_success # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   init_step -> my_octo -> step_two -> step_three -> final_step
 
 # Context:
-#   {:octo_key=>:option_two, :param_for_step_two=>true, :param_for_step_three=>true, :custom_key=>:option_two, :step_two=>true, :step_three=>true, :final_step=>"Success"}
+#   :octo_key => :option_two
+#   :param_for_step_two => true
+#   :param_for_step_three => true
+#   :custom_key => :option_two
+#   :step_two => true
+#   :step_three => true
+#   :final_step => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
-puts octo_option_two_failure # =>
+#   NONE
+octo_option_two_failure # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   init_step -> my_octo -> step_two -> step_three -> fail_two
 
 # Context:
-#   {:octo_key=>:option_two, :param_for_step_two=>true, :param_for_step_three=>false, :custom_key=>:option_two, :step_two=>true, :step_three=>false, :fail_two=>"Failure"}
+#   :octo_key => :option_two
+#   :param_for_step_two => true
+#   :param_for_step_three => false
+#   :custom_key => :option_two
+#   :step_two => true
+#   :step_three => false
+#   :fail_two => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
-puts octo_option_three_success # =>
+#   NONE
+octo_option_three_success # =>
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   init_step -> my_octo -> step_three -> step_one -> final_step
 
 # Context:
-#   {:octo_key=>:option_three, :param_for_step_one=>true, :param_for_step_three=>true, :custom_key=>:option_three, :step_three=>true, :step_one=>true, :final_step=>"Success"}
+#   :octo_key => :option_three
+#   :param_for_step_one => true
+#   :param_for_step_three => true
+#   :custom_key => :option_three
+#   :step_three => true
+#   :step_one => true
+#   :final_step => "Success"
+
+# Status: NONE
 
 # Errors:
-#   {}
-puts octo_option_three_failure # =>
+#   NONE
+
+octo_option_three_failure # =>
 # Result: failure
 
-# Railway Flow:
+# RailwayFlow:
 #   init_step -> my_octo -> step_three -> step_one -> fail_one -> fail_two
 
 # Context:
-#   {:octo_key=>:option_three, :param_for_step_one=>false, :param_for_step_three=>true, :custom_key=>:option_three, :step_three=>true, :step_one=>false, :fail_one=>"Failure", :fail_two=>"Failure"}
+#   :octo_key => :option_three
+#   :param_for_step_one => false
+#   :param_for_step_three => true
+#   :custom_key => :option_three
+#   :step_three => true
+#   :step_one => false
+#   :fail_one => "Failure"
+#   :fail_two => "Failure"
+
+# Status: NONE
 
 # Errors:
-#   {}
+#   NONE

@@ -16,17 +16,23 @@ class ProcessNumber < Decouplio::Action
 end
 
 action = ProcessNumber.call(number: 5, multiplier: 4, divider: 10) # =>
+
+puts action
 # Result: success
 
-# Railway Flow:
+# RailwayFlow:
 #   multiply -> divide
 
 # Context:
-#   {:number=>5, :multiplier=>4, :divider=>10, :result=>2}
+#   :number => 5
+#   :multiplier => 4
+#   :divider => 10
+#   :result => 2
+
+# Status: NONE
 
 # Errors:
-#   {}
-puts action
+#   NONE
 puts action[:number]# => 5
 puts action[:multiplier]# => 4
 puts action[:divider]# => 10
@@ -62,13 +68,16 @@ rescue Decouplio::Errors::ExecutionError => exception
   puts exception.action # =>
   # Result: failure
 
-  # Railway Flow:
+  # RailwayFlow:
   #   step_one
 
   # Context:
   #   :step_one_param => false
   #   :step_one => false
 
+  # Status: NONE
+
   # Errors:
-  #   None
+  #   NONE
+
 end
