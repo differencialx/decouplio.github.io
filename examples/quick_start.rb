@@ -6,18 +6,18 @@ class ProcessNumber < Decouplio::Action
     step :divide
   end
 
-  def multiply(number:, multiplier:, **)
-    ctx[:result] = number * multiplier
+  def multiply
+    ctx[:result] = ctx[:number] * ctx[:multiplier]
   end
 
-  def divide(result:, divider:, **)
-    ctx[:result] = result / divider
+  def divide
+    ctx[:result] = c.result / c.divider
   end
 end
 
 action = ProcessNumber.call(number: 5, multiplier: 4, divider: 10) # =>
 
-puts action
+action
 # Result: success
 
 # RailwayFlow:
@@ -33,15 +33,15 @@ puts action
 
 # Errors:
 #   NONE
-puts action[:number]# => 5
-puts action[:multiplier]# => 4
-puts action[:divider]# => 10
-puts action[:result]# => 2
+action[:number]# => 5
+action[:multiplier]# => 4
+action[:divider]# => 10
+action[:result]# => 2
 
-puts action.success? # => true
-puts action.failure? # => false
+action.success? # => true
+action.failure? # => false
 
-puts action.railway_flow.to_s # => [:multiply, :divide]
+action.railway_flow.to_s # => [:multiply, :divide]
 
 
 # OR
@@ -52,11 +52,11 @@ class RaisingAction < Decouplio::Action
     step :step_two
   end
 
-  def step_one(step_one_param:, **)
-    ctx[:step_one] = step_one_param
+  def step_one
+    ctx[:step_one] = c.step_one_param
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 end

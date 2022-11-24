@@ -6,11 +6,11 @@ class SomeAction < Decouplio::Action
     fail :fail_one
   end
 
-  def step_one(**)
+  def step_one
     false
   end
 
-  def fail_one(**)
+  def fail_one
     ms.status = :step_one_failure
     ms.add_error(:something_went_wrong, 'Something went wrong')
   end
@@ -95,15 +95,15 @@ class CustomMetaStoreAction < Decouplio::Action
     step :add_whatever
   end
 
-  def add_meta_status(**)
+  def add_meta_status
     ms.status = :custom_status
   end
 
-  def add_meta_error(**)
+  def add_meta_error
     ms.add_error(:custom_error, 'Custom error')
   end
 
-  def add_whatever(**)
+  def add_whatever
     ms.add_whatever(42)
     ms.add_whatever('Whatever')
   end

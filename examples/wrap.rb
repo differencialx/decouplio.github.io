@@ -15,23 +15,23 @@ class SomeAction < Decouplio::Action
     fail :fail_two
   end
 
-  def step_one(param_for_step_one:, **)
-    ctx[:step_one] = param_for_step_one
+  def step_one
+    ctx[:step_one] = c.param_for_step_one
   end
 
-  def step_two(param_for_step_two:, **)
-    ctx[:step_two]= param_for_step_two
+  def step_two
+    ctx[:step_two]= c.param_for_step_two
   end
 
-  def fail_one(**)
+  def fail_one
     ctx[:fail_one] = 'Fail one failure'
   end
 
-  def step_three(**)
+  def step_three
     ctx[:step_three] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Fail two failure'
   end
 end
@@ -124,12 +124,12 @@ class SomeActionWrapKlassMethod < Decouplio::Action
     end
   end
 
-  def step_one(**)
+  def step_one
     puts 'Step one'
     ctx[:step_one] = 'Success'
   end
 
-  def step_two(**)
+  def step_two
     puts 'Step two'
     ctx[:step_two] = 'Success'
   end

@@ -10,15 +10,15 @@ class SomeAction < Decouplio::Action
     fail :fail_two
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(**)
+  def fail_one
     ctx[:action_failed] = true
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 end
@@ -68,15 +68,15 @@ class SomeActionOnSuccessFinishHim < Decouplio::Action
     fail :fail_two
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:action_failed] = fail_one_param
+  def fail_one
+    ctx[:action_failed] = c.fail_one_param
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 end
@@ -151,19 +151,19 @@ class SomeActionOnSuccessToSuccessTrack < Decouplio::Action
     fail :fail_two
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:action_failed] = fail_one_param
+  def fail_one
+    ctx[:action_failed] = c.fail_one_param
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 end
@@ -241,23 +241,23 @@ class SomeActionOnSuccessToFailureTrack < Decouplio::Action
     fail :fail_three
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:action_failed] = fail_one_param
+  def fail_one
+    ctx[:action_failed] = c.fail_one_param
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 
-  def fail_three(**)
+  def fail_three
     ctx[:fail_three] = 'Failure'
   end
 end
@@ -333,12 +333,12 @@ class SomeActionOnSuccessPass < Decouplio::Action
     fail :fail_one, on_success: :PASS
   end
 
-  def step_one(**)
+  def step_one
     ctx[:step_one] = false
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:fail_one] = fail_one_param
+  def fail_one
+    ctx[:fail_one] = c.fail_one_param
   end
 end
 
@@ -388,19 +388,19 @@ class SomeActionOnFailureFinishHim < Decouplio::Action
     fail :fail_two
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:action_failed] = fail_one_param
+  def fail_one
+    ctx[:action_failed] = c.fail_one_param
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 end
@@ -478,19 +478,19 @@ class SomeActionOnFailureToSuccessTrack < Decouplio::Action
     fail :fail_two
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:action_failed] = fail_one_param
+  def fail_one
+    ctx[:action_failed] = c.fail_one_param
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 end
@@ -569,23 +569,23 @@ class SomeActionOnFailureToFailureTrack < Decouplio::Action
     fail :fail_three
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:action_failed] = fail_one_param
+  def fail_one
+    ctx[:action_failed] = c.fail_one_param
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 
-  def fail_three(**)
+  def fail_three
     ctx[:fail_three] = 'Failure'
   end
 end
@@ -660,12 +660,12 @@ class SomeActionOnFailurePass < Decouplio::Action
     fail :fail_one, on_failure: :PASS
   end
 
-  def step_one(**)
+  def step_one
     false
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:fail_one] = fail_one_param
+  def fail_one
+    ctx[:fail_one] = c.fail_one_param
   end
 end
 
@@ -714,28 +714,28 @@ class SomeActionOnIfCondition < Decouplio::Action
     fail :fail_three
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(**)
+  def fail_one
     ctx[:action_failed] = true
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 
-  def fail_three(**)
+  def fail_three
     ctx[:fail_three] = 'Failure'
   end
 
-  def some_condition?(if_condition_param:, **)
-    if_condition_param
+  def some_condition?
+    c.if_condition_param
   end
 end
 
@@ -813,19 +813,19 @@ class SomeActionOnUnlessCondition < Decouplio::Action
     fail :fail_three
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(**)
+  def fail_one
     ctx[:action_failed] = true
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 
@@ -833,8 +833,8 @@ class SomeActionOnUnlessCondition < Decouplio::Action
     ctx[:fail_three] = 'Failure'
   end
 
-  def some_condition?(if_condition_param:, **)
-    if_condition_param
+  def some_condition?
+    c.if_condition_param
   end
 end
 
@@ -912,19 +912,19 @@ class SomeActionFinishHimTrue < Decouplio::Action
     fail :fail_two
   end
 
-  def step_one(param_for_step_one:, **)
-    param_for_step_one
+  def step_one
+    c.param_for_step_one
   end
 
-  def fail_one(fail_one_param:, **)
-    ctx[:action_failed] = fail_one_param
+  def fail_one
+    ctx[:action_failed] = c.fail_one_param
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_two(**)
+  def fail_two
     ctx[:fail_two] = 'Failure'
   end
 end

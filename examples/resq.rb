@@ -1,10 +1,78 @@
-require 'decouplio'
+require_relative '../../decouplio/lib/decouplio'
 
 
+## When without specified error class
+class ResqWithoutErrorClassAction < Decouplio::Action
+  logic do
+    step :step_one
+    resq :handler_method
+    step :step_two
+    fail :fail_one
+  end
 
-# Behavior
+  def step_one
+    ctx[:step_one] = c.lambda_for_step_one.call
+  end
 
-class SomeAction < Decouplio::Action
+  def step_two
+    ctx[:step_two] = 'Success'
+  end
+
+  def fail_one
+    ctx[:fail_one] = 'Failure'
+  end
+
+  def handler_method(error)
+    ctx[:error] = error.message
+  end
+end
+
+success_action = ResqWithoutErrorClassAction.call(lambda_for_step_one: -> { true })
+failure_action = ResqWithoutErrorClassAction.call(lambda_for_step_one: -> { false })
+erroneous_action = ResqWithoutErrorClassAction.call(
+  lambda_for_step_one: -> { raise 'some error message' }
+)
+
+success_action # =>
+# Result: success
+# RailwayFlow:
+#   step_one -> step_two
+# Context:
+#   :lambda_for_step_one => #<Proc:0x000055bdf9e22018 resq.rb:30 (lambda)>
+#   :step_one => true
+#   :step_two => "Success"
+# Status: nil
+# Errors:
+#   NONE
+
+failure_action # =>
+# Result: failure
+# RailwayFlow:
+#   step_one -> fail_one
+# Context:
+#   :lambda_for_step_one => #<Proc:0x000055bdf9e21eb0 resq.rb:31 (lambda)>
+#   :step_one => false
+#   :fail_one => "Failure"
+# Status: nil
+# Errors:
+#   NONE
+
+
+erroneous_action # =>
+# Result: failure
+# RailwayFlow:
+#   step_one -> handler_method -> fail_one
+# Context:
+#   :lambda_for_step_one => #<Proc:0x000055bff7675e28 resq.rb:33 (lambda)>
+#   :error => "some error message"
+#   :fail_one => "Failure"
+# Status: NONE
+# Errors:
+#   NONE
+
+
+## When error class is specified
+class ResqWithClassAction < Decouplio::Action
   logic do
     step :step_one
     resq handler_method: ArgumentError
@@ -12,26 +80,26 @@ class SomeAction < Decouplio::Action
     fail :fail_one
   end
 
-  def step_one(lambda_for_step_one:, **)
-    ctx[:step_one] = lambda_for_step_one.call
+  def step_one
+    ctx[:step_one] = c.lambda_for_step_one.call
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_one(**)
+  def fail_one
     ctx[:fail_one] = 'Failure'
   end
 
-  def handler_method(error, **this_is_ctx)
+  def handler_method(error)
     ctx[:error] = error.message
   end
 end
 
-success_action = SomeAction.call(lambda_for_step_one: -> { true })
-failure_action = SomeAction.call(lambda_for_step_one: -> { false })
-erroneous_action = SomeAction.call(
+success_action = ResqWithClassAction.call(lambda_for_step_one: -> { true })
+failure_action = ResqWithClassAction.call(lambda_for_step_one: -> { false })
+erroneous_action = ResqWithClassAction.call(
   lambda_for_step_one: -> { raise ArgumentError, 'some error message' }
 )
 
@@ -94,23 +162,23 @@ class SomeActionSeveralHandlersErrorClasses < Decouplio::Action
     fail :fail_one
   end
 
-  def step_one(lambda_for_step_one:, **)
-    ctx[:step_one] = lambda_for_step_one.call
+  def step_one
+    ctx[:step_one] = c.lambda_for_step_one.call
   end
 
-  def step_two(**)
+  def step_two
     ctx[:step_two] = 'Success'
   end
 
-  def fail_one(**)
+  def fail_one
     ctx[:fail_one] = 'Failure'
   end
 
-  def handler_method_one(error, **this_is_ctx)
+  def handler_method_one(error)
     ctx[:error] = error.message
   end
 
-  def handler_method_two(error, **this_is_ctx)
+  def handler_method_two(error)
     ctx[:error] = error.message
   end
 end

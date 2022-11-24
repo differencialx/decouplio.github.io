@@ -6,13 +6,13 @@ class SomeAction < Decouplio::Action
     step :step_two
   end
 
-  def step_one(**)
+  def step_one
     ctx[:step_one] = 'Step one ctx value'
   end
 
   # step method receives ctx as an argument
-  def step_two(step_one:, **)
-    ctx[:step_two] = step_one
+  def step_two
+    ctx[:step_two] = c.step_one
   end
 end
 
@@ -38,8 +38,8 @@ class SomeActionCtx < Decouplio::Action
     step :step_one
   end
 
-  def step_one(**)
-    ctx[:result] = ctx[:one] + ctx[:two]
+  def step_one
+    ctx[:result] = c.one + c.two
   end
 end
 
