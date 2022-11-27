@@ -8,7 +8,7 @@ nav_order: 3
 
 # on_error
 
-Will be performed only in pair with [resq]() step. When step raises an exception then specified `on_error` option will be performed, only after resq handler method execution.
+Will be performed only in pair with [resq](https://differencialx.github.io/decouplio.github.io/resq/) step. When step raises an exception then specified `on_error` option will be performed, only after resq handler method execution.
 
 |Allowed values|Behavior|
 |:-|:-|

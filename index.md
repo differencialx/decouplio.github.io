@@ -24,14 +24,13 @@ gem 'decouplio', '~> 1.0.0rc'
 
 # Quick reference to docs
 
-|Options/Step type|[**step**]()|[**fail**]()|[**pass**]()|[**wrap**]()|[**octo**]()|[**resq**]()|
+|Options/Step type|[**step**](https://differencialx.github.io/decouplio.github.io/step/)|[**fail**](https://differencialx.github.io/decouplio.github.io/fail/)|[**pass**](https://differencialx.github.io/decouplio.github.io/pass/)|[**wrap**](https://differencialx.github.io/decouplio.github.io/wrap/)|[**octo**](https://differencialx.github.io/decouplio.github.io/octo/)|[**resq**](https://differencialx.github.io/decouplio.github.io/resq/)|
 |:-|:-:|:-:|:-:|:-:|:-:|:-:|
-||[**on_success**]()|[**on_success**]()||[**on_success**]()|[**on_success**]()|-|
-||[**on_failure**]()|[**on_failure**]()||[**on_failure**]()|[**on_failure**]()|-|
-||[**on_error**]()|[**on_error**]()|[**on_error**]()|[**on_error**]()|[**on_error**]()|-|
-||[**finish_him**]()|[**finish_him**]()|[**finish_him**]()|[**finish_him**]()||-|
-||[**if**]()|[**if**]()|[**if**]()|[**if**]()|[**if**]()|-|
-||[**unless**]()|[**unless**]()|[**unless**]()|[**unless**]()|[**unless**]()|-|
+||[**on_success**](https://differencialx.github.io/decouplio.github.io/on_success/)|[**on_success**](https://differencialx.github.io/decouplio.github.io/on_success/)||[**on_success**](https://differencialx.github.io/decouplio.github.io/on_success/)|[**on_success**](https://differencialx.github.io/decouplio.github.io/on_success/)|-|
+||[**on_failure**](https://differencialx.github.io/decouplio.github.io/on_failure/)|[**on_failure**](https://differencialx.github.io/decouplio.github.io/on_failure/)||[**on_failure**](https://differencialx.github.io/decouplio.github.io/on_failure/)|[**on_failure**](https://differencialx.github.io/decouplio.github.io/on_failure/)|-|
+||[**on_error**](https://differencialx.github.io/decouplio.github.io/on_error/)|[**on_error**](https://differencialx.github.io/decouplio.github.io/on_error/)|[**on_error**](https://differencialx.github.io/decouplio.github.io/on_error/)|[**on_error**](https://differencialx.github.io/decouplio.github.io/on_error/)|[**on_error**](https://differencialx.github.io/decouplio.github.io/on_error/)|-|
+||[**finish_him**](https://differencialx.github.io/decouplio.github.io/finish_him/)|[**finish_him**](https://differencialx.github.io/decouplio.github.io/finish_him/)|[**finish_him**](https://differencialx.github.io/decouplio.github.io/finish_him/)|[**finish_him**](https://differencialx.github.io/decouplio.github.io/finish_him/)||-|
+||[**if/unless**](https://differencialx.github.io/decouplio.github.io/if_unless/)|[**if/unless**](https://differencialx.github.io/decouplio.github.io/if_unless/)|[**if/unless**](https://differencialx.github.io/decouplio.github.io/if_unless/)|[**if/unless**](https://differencialx.github.io/decouplio.github.io/if_unless/)|[**if/unless**](https://differencialx.github.io/decouplio.github.io/if_unless/)|-|
 
 # Quick start
 ## What should you know before start?
