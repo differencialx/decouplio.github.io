@@ -7,7 +7,7 @@ nav_order: 1
 ---
 
 # Resq all
-To catch any exception by resq you just need to specify a handler method, like in the example below.
+To catch any exception(inherited from `StandardError`) by resq you just need to specify a handler method, like in the example below.
 
 ```ruby
 require 'decouplio'
