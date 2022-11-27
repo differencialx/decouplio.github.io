@@ -22,6 +22,11 @@ gem install decouplio --pre
 gem 'decouplio', '~> 1.0.0rc'
 ```
 
+# Compatibility
+  Ruby:
+ - 2.7
+ - 3.0
+
 # Quick reference to docs
 
 |Options/Step type|[**step**](https://differencialx.github.io/decouplio.github.io/step/)|[**fail**](https://differencialx.github.io/decouplio.github.io/fail/)|[**pass**](https://differencialx.github.io/decouplio.github.io/pass/)|[**wrap**](https://differencialx.github.io/decouplio.github.io/wrap/)|[**octo**](https://differencialx.github.io/decouplio.github.io/octo/)|[**resq**](https://differencialx.github.io/decouplio.github.io/resq/)|
