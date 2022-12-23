@@ -1,0 +1,416 @@
+{"0": {
+    "doc": "With addition service params",
+    "title": "Example with additional service params",
+    "content": "require 'decouplio' class Semantic def self.call(ctx, ms, semantic:, error_message:) ms.status = semantic ms.add_error(semantic, error_message) end end class SomeActionSemantic &lt; Decouplio::Action logic do step :step_one fail Semantic, semantic: :bad_request, error_message: 'Bad request' step :step_two end def step_one ctx[:step_one] = c.step_one_param end def step_two ctx[:step_two] = 'Success' end def fail_one ctx[:fail_one] = 'Failure' end end success_action = SomeActionSemantic.call(step_one_param: true) failure_action = SomeActionSemantic.call(step_one_param: false) success_action # =&gt; # Result: success # RailwayFlow: # step_one -&gt; step_two # Context: # :step_one_param =&gt; true # :step_one =&gt; true # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE failure_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; Semantic # Context: # :step_one_param =&gt; false # :step_one =&gt; false # Status: :bad_request # Errors: # :bad_request =&gt; [\"Bad request\"] . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/additional_service_params/#example-with-additional-service-params",
+    "relUrl": "/additional_service_params/#example-with-additional-service-params"
+  },"1": {
+    "doc": "With addition service params",
+    "title": "With addition service params",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/additional_service_params/",
+    "relUrl": "/additional_service_params/"
+  },"2": {
+    "doc": "Using context key",
+    "title": "Octo by ctx_key",
+    "content": "ctx_key option will use value from action context placed under specified key. class OctoByKey &lt; Decouplio::Action logic do octo :octo_name, ctx_key: :octo_key do on :octo_key1, :step_one on :octo_key2, :step_two end end def step_one ctx[:step_one] = 'step_one success' end def step_two ctx[:step_two] = 'step_two success' end end OctoByKey.call(octo_key: :octo_key1) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key1 -&gt; step_one # Context: # :octo_key =&gt; :octo_key1 # :step_one =&gt; \"step_one success\" # Status: NONE # Errors: # NONE OctoByKey.call(octo_key: :octo_key2) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key2 -&gt; step_two # Context: # :octo_key =&gt; :octo_key2 # :step_two =&gt; \"step_two success\" # Status: NONE # Errors: # NONE . flowchart LR; A(start)--&gt;B(octo_name); B(octo_name)--&gt;|when :octo_key1|C(step_one); B(octo_name)--&gt;|when :octo_key2|D(step_two); C(step_one)--&gt;|success track|E(finish_success); D(step_two)--&gt;|success track|E(finish_success); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo_by_ctx_key/#octo-by-ctx_key",
+    "relUrl": "/octo_by_ctx_key/#octo-by-ctx_key"
+  },"3": {
+    "doc": "Using context key",
+    "title": "Using context key",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo_by_ctx_key/",
+    "relUrl": "/octo_by_ctx_key/"
+  },"4": {
+    "doc": "Using method",
+    "title": "Using method",
+    "content": "Octo key will be retrieved from method execution result. class OctoByMethod &lt; Decouplio::Action logic do octo :octo_name, method: :retrieve_octo_key do on :octo_key1, :step_one on :octo_key2, :step_two end end def step_one ctx[:step_one] = 'step_one success' end def step_two ctx[:step_two] = 'step_two success' end def retrieve_octo_key c.octo_key end end OctoByMethod.call(octo_key: :octo_key1) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key1 -&gt; step_one # Context: # :octo_key =&gt; :octo_key1 # :step_one =&gt; \"step_one success\" # Status: NONE # Errors: # NONE OctoByMethod.call(octo_key: :octo_key2) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key2 -&gt; step_two # Context: # :octo_key =&gt; :octo_key2 # :step_two =&gt; \"step_two success\" # Status: NONE # Errors: # NONE . flowchart LR; A(start)--&gt;B(octo_name); B(octo_name)--&gt;|when :octo_key1|C(step_one); B(octo_name)--&gt;|when :octo_key2|D(step_two); C(step_one)--&gt;|success track|E(finish_success); D(step_two)--&gt;|success track|E(finish_success); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo_by_method/",
+    "relUrl": "/octo_by_method/"
+  },"5": {
+    "doc": "Custom MetaStore",
+    "title": "Custom MetaStore",
+    "content": "You always can define your own meta store, which will suit for you. Just create new class AND Set it for action using meta_store_class method . NOTE: To avoid setting your custom meta_store for all action, you can create a base class and set it there and just inherit your action from it. class CustomMetaStore attr_reader :whatever def initialize @whatever = [] end def add_whatever(element) @whatever &lt;&lt; element end def to_s &lt;&lt;~METASTORE Whatever: #{@whatever.inspect} METASTORE end end class BaseCustomMetaStore &lt; Decouplio::Action meta_store_class CustomMetaStore end class CustomMetaStoreAction &lt; BaseCustomMetaStore logic do step :add_whatever end def add_whatever(**) ms.add_whatever(42) ms.add_whatever('Whatever') end end result = CustomMetaStoreAction.call result # Result: success # RailwayFlow: # add_meta_status -&gt; add_meta_error -&gt; add_whatever # Context: # NONE # Whatever: # [42, \"Whatever\"] . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/custom_metastore/",
+    "relUrl": "/custom_metastore/"
+  },"6": {
+    "doc": "Default MetaStore",
+    "title": "Default MetaStore",
+    "content": "This is how DefaultMetaStore looks like. module Decouplio class DefaultMetaStore attr_accessor :status attr_reader :errors def initialize @errors = {} @status = nil end def add_error(key, messages) @errors.store( key, (@errors[key] || []) + [messages].flatten ) end def to_s &lt;&lt;~METASTORE Status: #{@status || 'NONE'} Errors: #{errors_string} METASTORE end private def errors_string return 'NONE' if @errors.empty? @errors.map do |k, v| \"#{k.inspect} =&gt; #{v.inspect}\" end.join(\"\\n \") end end end . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/default_metastore/",
+    "relUrl": "/default_metastore/"
+  },"7": {
+    "doc": "Default MetaStore",
+    "title": "How to use",
+    "content": "For each new action call new meta_store will be initialized. You can access meta_store by calling ms method inside step’s methods. Also meta_store will be passed as a second argument into Service as a step. Decouplio::DefaultMetaStore implements basic three basic methods . | add_error - adds error to meta_store | status= - sets status or action. It can be used to make a decision what should be done next, as success or failure action result is not enough sometimes. | to_s - this method should be implemented if you want to have good looking console output of action, otherwise it will be printed as default object. | . require 'decouplio' class SomeAction &lt; Decouplio::Action logic do step :step_one fail :fail_one end def step_one(**) FAIL end def fail_one(**) ms.status = :step_one_failure ms.add_error(:something_went_wrong, 'Something went wrong') end end action = SomeAction.call action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; fail_one # Context: NONE # Status: step_one_failure # Errors: # :something_went_wrong =&gt; [\"Something went wrong\"] action.ms.errors # =&gt; # {:something_went_wrong=&gt;[\"Something went wrong\"]} action.ms.status # =&gt; # step_one_failure . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/default_metastore/#how-to-use",
+    "relUrl": "/default_metastore/#how-to-use"
+  },"8": {
+    "doc": "Fail",
+    "title": "Fail",
+    "content": "fail is the special type of step to mark failure track . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/fail/",
+    "relUrl": "/fail/"
+  },"9": {
+    "doc": "Fail",
+    "title": "Signature",
+    "content": "fail(step_name, **options) . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/fail/#signature",
+    "relUrl": "/fail/#signature"
+  },"10": {
+    "doc": "Fail",
+    "title": "Behavior",
+    "content": ". | when step method(#fail_one) returns truthy or falsy value then it goes to failure track(fail_two step) unless on_success: or on_failure: option were specified(see on_success, on_failure docs) | . require 'decouplio' class SomeAction &lt; Decouplio::Action logic do step :step_one fail :fail_one fail :fail_two end def step_one c.param_for_step_one end def fail_one ctx[:action_failed] = true end def fail_two ctx[:fail_two] = 'Failure' end end success_action = SomeAction.call(param_for_step_one: true) failure_action = SomeAction.call(param_for_step_one: false) success_action # =&gt; # Result: success # RailwayFlow: # step_one # Context: # :param_for_step_one =&gt; true # Status: NONE # Errors: # NONE failure_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; fail_one -&gt; fail_two # Context: # :param_for_step_one =&gt; false # :action_failed =&gt; true # :fail_two =&gt; \"Failure\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(finish_success); 2(step_one)--&gt;|failure track|4(fail_one); 4(fail_one)--&gt;|failure track|5(fail_two); 5(fail_two)--&gt;|failure track|F(finish_failure); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/fail/#behavior",
+    "relUrl": "/fail/#behavior"
+  },"11": {
+    "doc": "finish_him",
+    "title": "finish_him",
+    "content": "Stops action execution. finish_him has different option values for different steps, see table below. | Step type/Available values | :on_success | :on_failure | :on_error | true | . | step | YES | YES | YES | NO | . | fail | YES | YES | YES | YES - will stop action execution anyway | . | pass | YES | YES | YES | YES - will stop action execution anyway | . | wrap | YES | YES | YES | NO | . | octo - not allowed | NO | NO | NO | NO | . # ... logic do step :step_one, finish_him: :on_success # will stop action execution step :step_two end def step_one true end . # ... logic do step :step_one, finish_him: :on_failure # will stop action execution step :step_two fail :fail_one end def step_one false end . # ... logic do step :step_one, finish_him: :on_error # will stop action execution step :step_two fail :fail_one end def step_one raise 'Something went wrong' end . # ... logic do step :step_one pass :pass_one, finish_him: :true fail :fail_one, finish_him: :true step :final fail :fail_final end def step_one [true, false].sample end def fail_one # doesn't matter what value will be returned by step method, action executions will be stopped end def pass_one # doesn't matter what value will be returned by step method, action executions will be stopped end . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/finish_him/",
+    "relUrl": "/finish_him/"
+  },"12": {
+    "doc": "if/unless",
+    "title": "if/unless",
+    "content": "Can be used if you need to perform step conditionally . if/unless is allowed for step, fail, pass, wrap, octo . # ... logic do step :step_one, if: :some_condition? # step will be executed if some_condition? method returns truthy value step :step_two, unless: :another_condition? # step will be executed unless another_condition? method returns falsy value step :step_three end def step_one true end def step_two true end def some_condition? c.some_value == 'some_value' end def another_condition? c.another_value == 'another_value' end # ... ",
+    "url": "https://differencialx.github.io/decouplio.github.io/if_unless/",
+    "relUrl": "/if_unless/"
+  },"13": {
+    "doc": "Home",
+    "title": "Decouplio",
+    "content": "Decouplio is a zero dependency, thread safe and framework agnostic gem designed to encapsulate application business logic. It’s reverse engineered through TDD and inspired by such frameworks and gems like Trailblazer, Interactor. ",
+    "url": "https://differencialx.github.io/decouplio.github.io/#decouplio",
+    "relUrl": "/#decouplio"
+  },"14": {
+    "doc": "Home",
+    "title": "How to install?",
+    "content": "gem install decouplio --pre . Gemfile . gem 'decouplio', '~&gt; 1.0.0rc' . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/#how-to-install",
+    "relUrl": "/#how-to-install"
+  },"15": {
+    "doc": "Home",
+    "title": "Compatibility",
+    "content": "Ruby: . | 2.7 | 3.0 | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/#compatibility",
+    "relUrl": "/#compatibility"
+  },"16": {
+    "doc": "Home",
+    "title": "Quick reference to docs",
+    "content": "| Options/Step type | step | fail | pass | wrap | octo | resq | . |   | on_success | on_success |   | on_success | on_success | - | . |   | on_failure | on_failure |   | on_failure | on_failure | - | . |   | on_error | on_error | on_error | on_error | on_error | - | . |   | finish_him | finish_him | finish_him | finish_him |   | - | . |   | if/unless | if/unless | if/unless | if/unless | if/unless | - | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/#quick-reference-to-docs",
+    "relUrl": "/#quick-reference-to-docs"
+  },"17": {
+    "doc": "Home",
+    "title": "Quick start",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/#quick-start",
+    "relUrl": "/#quick-start"
+  },"18": {
+    "doc": "Home",
+    "title": "What should you know before start?",
+    "content": "Action . Action is a class which encapsulates business logic. To create one just create a class and inherit it from Decouplio::Action class . require 'decouplio' class MyAction &lt; Decouplio::Action end . Logic block . Block inside Action which contains definition of business logic. require 'decouplio' class MyAction &lt; Decouplio::Action logic do # logic block end end . Step . Step is an atomic part of business logic and it defines inside Logic block. require 'decouplio' class MyAction &lt; Decouplio::Action logic do step :hello_world end def hello_world ctx[:result] = 'Hello world' end end MyAction.call[:result] # =&gt; Hello world . | Step types | . | step | . | fail | . | pass | . | wrap | . | octo | . | resq | . Context . Action context is an object which is used to share data between steps. It’s accessible only inside step. | To access the action context inside step you need to call ctx method | ctx behaves like a Hash. | To assign some value to ctx just do ctx[:some_key] = 'some value' | To access ctx value use ctx[:some_value] or use a shortcut c.some_value | . NOTE: you can’t assign context value using c.&lt;some key&gt; shortcut. require 'decouplio' class CtxIntroduction &lt; Decouplio::Action logic do step :calculate_result end def calculate_result ctx[:result] = c.one + c.two # OR # c[:result] = c[:one] + c[:two] #OR # ctx[:result] = ctx[:one] + ctx[:two] end end action_result = CtxIntroduction.call(one: 1, two: 2) action_result[:result] # =&gt; 3 . Success/Failure track . Execution flow of action is changing depending on step result. | If step returns truthy value(not nil|false), when next success track step will be executed. | If step returns falsy value(nil|false), when next failure track step will be executed. | . | Success track | Failure track | . | step | fail | . | pass |   | . | wrap |   | . | octo |   | . require 'decouplio' class Divider &lt; Decouplio::Action logic do step :validate_divider step :divide fail :failure_message end def validate_divider !ctx[:divider].zero? end def divide ctx[:result] = c.number / c.divider end def failure_message ctx[:error_message] = 'Division by zero is not allowed' end end divider_success = Divider.call(number: 4, divider: 2) divider_success.success? # =&gt; true divider_success.failure? # =&gt; false divider_success[:result] # =&gt; 2 divider_success[:error_message] # =&gt; nil divider_success.railway_flow # =&gt; [:validate_divider, :divide] puts divider_success # =&gt; # Result: success # RailwayFlow: # validate_divider -&gt; divide # Context: # :number =&gt; 4 # :divider =&gt; 2 # :result =&gt; 2 # Status: NONE # Errors: # NONE divider_failure = Divider.call(number: 4, divider: 0) divider_failure.success? #=&gt; false divider_failure.failure? #=&gt; true divider_failure[:result] # =&gt; nil divider_failure[:error_message] # =&gt; 'Division by zero is not allowed' divider_failure.railway_flow# =&gt; [:validate_divider, :failure_message] divider_failure # =&gt; # Result: failure # RailwayFlow: # validate_divider -&gt; failure_message # Context: # :number =&gt; 4 # :divider =&gt; 0 # :error_message =&gt; \"Division by zero is not allowed\" # Status: NONE # Errors: # NONE . Railway flow . During execution Decouplio is recording executed steps, so you check which steps were executed. It becomes in handy during debugging and writing test. class RailwayAction &lt; Decouplio::Action logic do step :step1 step :step2 step :step3 end def step1 ctx[:step1] = 'Step1' end def step2 ctx[:step2] = 'Step2' end def step3 ctx[:step3] = 'Step3' end end railway_action = RailwayAction.call railway_action.railway_flow.inspect # =&gt; [:step1, :step2, :step3] railway_action # =&gt; # Result: success # RailwayFlow: # step1 -&gt; step2 -&gt; step3 # Context: # :step1 =&gt; \"Step1\" # :step2 =&gt; \"Step2\" # :step3 =&gt; \"Step3\" # Status: NONE # Errors: # NONE . Meta Store . Generally metastore is a PORO, which is accessible inside steps by calling meta_store method or it’s alias ms. It was created to help developers to standardize things and keep meta info about action, because sometimes success? or failure? is not enough to make a decision about what to do next. I defined default metastore class which can manage custom action status and standardizes the way how error messages should be added. That’s how default metastore class looks like . # frozen_string_literal: true module Decouplio class DefaultMetaStore attr_accessor :status, :errors def initialize @errors = {} @status = nil end def add_error(key, messages) @errors.store( key, (@errors[key] || []) + [messages].flatten ) end # This method is used to print metastore status to console # when you checking action output def to_s &lt;&lt;~METASTORE Status: #{@status || 'NONE'} Errors: #{errors_string} METASTORE end private def errors_string return 'NONE' if @errors.empty? @errors.map do |k, v| \"#{k.inspect} =&gt; #{v.inspect}\" end.join(\"\\n \") end end end . So it’s allows you do this . class MetaStoreAction &lt; Decouplio::Action logic do step :always_fails fail :handle_fail end # Decouplio has to constants which are accessible inside steps # PASS = true # FAIL = false # You can use then to force step to fail or pass instead of `true` of `false` def always_fails FAIL end def handle_fail ms.status = :failed_and_i_duno_why ms.add_error(:something_went_wrong, 'Something went wrong') ms.add_error(:something_went_wrong, 'And I duno why :(') end end MetaStoreAction.call #=&gt; # Result: failure # RailwayFlow: # always_fails -&gt; handle_fail # Context: # Empty # Status: :failed_and_i_duno_why # Errors: # :something_went_wrong =&gt; [\"Something went wrong\", \"And I duno why :(\"] . NOTE: you can always define your own metastore class accordingly to your needs. DOCS ARE HERE . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/#what-should-you-know-before-start",
+    "relUrl": "/#what-should-you-know-before-start"
+  },"19": {
+    "doc": "Home",
+    "title": "Home",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/",
+    "relUrl": "/"
+  },"20": {
+    "doc": "Inner action",
+    "title": "Inner Action",
+    "content": "step/fail/pass steps can perform another action instead of method. Context from parent action will be passed to inner action. Depending on inner action result(success|failure) next success or failure track step will be executed. NOTE: Be careful, as inner actions can override parent context. require 'decouplio' class InnerAction &lt; Decouplio::Action logic do step :step_one step :step_two end def step_one ctx # =&gt; ctx from parent action(SomeAction) ctx[:step_one] = 'Success' end def step_two ctx # =&gt; ctx from parent action(SomeAction) ctx[:step_two] = 'Success' end end class SomeAction &lt; Decouplio::Action logic do step InnerAction # OR # fail InnerAction # OR # pass InnerAction end end action = SomeAction.call action # =&gt; # Result: success # RailwayFlow: # InnerAction -&gt; step_one -&gt; step_two # Context: # :step_one =&gt; \"Success\" # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(any_name); subgraph inner action; 2(step_one)--&gt;|success track|3(step_two); end; 3(step_two)--&gt;|success track|4(finish success); The parent action context will be passed into inner action . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/inner_action/#inner-action",
+    "relUrl": "/inner_action/#inner-action"
+  },"21": {
+    "doc": "Inner action",
+    "title": "Options",
+    "content": "All options for step/fail/pass can be applied for inner action step. ",
+    "url": "https://differencialx.github.io/decouplio.github.io/inner_action/#options",
+    "relUrl": "/inner_action/#options"
+  },"22": {
+    "doc": "Inner action",
+    "title": "Inner action",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/inner_action/",
+    "relUrl": "/inner_action/"
+  },"23": {
+    "doc": "Meta store",
+    "title": "Meta store",
+    "content": "It’s a simple PORO to persist meta data about action, like errors or some status or whatever you want, depends on your needs. By default each action uses Decouplio::DefaultMetaStore, but you can define your own. ",
+    "url": "https://differencialx.github.io/decouplio.github.io/meta_store/",
+    "relUrl": "/meta_store/"
+  },"24": {
+    "doc": "Meta store",
+    "title": "Behavior",
+    "content": ". | In case if inner action is used, then meta_store from parent action will be used inside inner action. | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/meta_store/#behavior",
+    "relUrl": "/meta_store/#behavior"
+  },"25": {
+    "doc": "Octo",
+    "title": "Octo (experimental)",
+    "content": "It’s a step type which helps to implement strategy pattern. ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo/#octo-experimental",
+    "relUrl": "/octo/#octo-experimental"
+  },"26": {
+    "doc": "Octo",
+    "title": "Signature",
+    "content": "octo(octo_name, (ctx_key:|method:), **step_options) do # Octo block on(octo_key, step_to_perform=nil, **step_options, &amp;block) end . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo/#signature",
+    "relUrl": "/octo/#signature"
+  },"27": {
+    "doc": "Octo",
+    "title": "Behavior",
+    "content": ". | Octo executes different flows depending on specified value. | You have two options to set value for octo. By ctx_key and method. | ctx_key and method options are controversial, so you can use only one of them. | with ctx_key you can specify the key inside action context | with method you can specify method name symbol, which will be called to retrieve octo_key value. | step options from on definition will override options from octo step options | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo/#behavior",
+    "relUrl": "/octo/#behavior"
+  },"28": {
+    "doc": "Octo",
+    "title": "Octo",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo/",
+    "relUrl": "/octo/"
+  },"29": {
+    "doc": "on_error",
+    "title": "on_error",
+    "content": "Will be performed only in pair with resq step. When step raises an exception then specified on_error option will be performed, only after resq handler method execution. | Allowed values | Behavior | . | :PASS | performs next success track step | . | :FAIL | performs next failure track step | . | :finish_him | stops action execution | . | symbol of the next step | performs defined step, no matter on which track it is. | . # ... logic do step :step_one, on_error: :PASS # will perform step_two resq :handle_step_one step :step_two fail :fail_one end def step_one raise 'Something went wrong' end def handle_step_one(error) # handle an error end # ... # ... logic do step :step_one, on_error: :FAIL # will perform fail_one resq :handle_step_one step :step_two fail :fail_one end def step_one raise 'Something went wrong' end def handle_step_one(error) # handle an error end # ... # ... logic do step :step_one, on_error: :finish_him # will stop action execution resq :handle_step_one step :step_two fail :fail_one end def step_one raise 'Something went wrong' end def handle_step_one(error) # handle an error end # ... # ... logic do step :step_one, on_error: :fail_two # will perform fail_two resq :handle_step_one step :step_two fail :fail_one fail :fail_two end def step_one raise 'Something went wrong' end def handle_step_one(error) # handle an error end # ... ",
+    "url": "https://differencialx.github.io/decouplio.github.io/on_error/",
+    "relUrl": "/on_error/"
+  },"30": {
+    "doc": "on_failure",
+    "title": "on_failure",
+    "content": "If step result is falsy value then defined option value will be performed . | Allowed values | Behavior | . | :PASS | performs next success track step | . | :FAIL | performs next failure track step | . | :finish_him | stops action execution | . | symbol of the next step | performs defined step, no matter on which track it is. | . # ... logic do step :step_one, on_failure: :PASS # will perform step_two step :step_two fail :fail_one end def step_one false end # ... # ... logic do step :step_one, on_failure: :FAIL # will perform fail_one step :step_two fail :fail_one end def step_one false end # ... # ... logic do step :step_one, on_failure: :finish_him # will stop action execution step :step_two fail :fail_one end def step_one false end # ... # ... logic do step :step_one, on_failure: :fail_two # will perform fail_two step :step_two fail :fail_one fail :fail_two end def step_one false end # ... ",
+    "url": "https://differencialx.github.io/decouplio.github.io/on_failure/",
+    "relUrl": "/on_failure/"
+  },"31": {
+    "doc": "on_success",
+    "title": "on_success",
+    "content": "If step result is truthy value then defined option value will be performed . | Allowed values | Behavior | . | :PASS | performs next success track step | . | :FAIL | performs next failure track step | . | :finish_him | stops action execution | . | symbol of the next step | performs defined step, no matter on which track it is. | . # ... logic do step :step_one, on_success: :PASS # will perform step_two step :step_two fail :fail_one end def step_one true end # ... # ... logic do step :step_one, on_success: :FAIL # will perform fail_one step :step_two fail :fail_one end def step_one true end # ... # ... logic do step :step_one, on_success: :finish_him # will stop action execution step :step_two fail :fail_one end def step_one true end # ... # ... logic do step :step_one, on_success: :fail_two # will perform fail_two step :step_two fail :fail_one fail :fail_two end def step_one true end # ... ",
+    "url": "https://differencialx.github.io/decouplio.github.io/on_success/",
+    "relUrl": "/on_success/"
+  },"32": {
+    "doc": "Options",
+    "title": "Octo options",
+    "content": "| Option | Allowed | . | on_success | YES | . | on_failure | YES | . | on_error | YES | . | finish_him | NO | . | if | YES | . | unless | YES | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/options/#octo-options",
+    "relUrl": "/options/#octo-options"
+  },"33": {
+    "doc": "Options",
+    "title": "Octo block options",
+    "content": "Options which can be passed to on method for step . | Option | Allowed | . | on_success | YES | . | on_failure | YES | . | on_error | YES | . | finish_him | NO | . | if | NO | . | unless | NO | . NOTE: on method options take precedence over octo step options. class OctoOptions &lt; Decouplio::Action logic do octo :octo_name, ctx_key: :octo_key, on_success: :FAIL, on_failure: :PASS, on_error: :PASS, if: :something do on :octo_key1, :step_one, on_success: :PASS, on_failure: :FAIL, on_error: :PASS on :octo_key2, :step_two, on_success: :finish_him, on_failure: :finish_him, on_error: :finish_him on :octo_key3, on_success: :step_two, on_error: :finish_him do step :step_one end end end def step_one ctx[:step_one] = 'Success' end def step_two ctx[:step_two] = 'Success' end end . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/options/#octo-block-options",
+    "relUrl": "/options/#octo-block-options"
+  },"34": {
+    "doc": "Options",
+    "title": "Options",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/options/",
+    "relUrl": "/options/"
+  },"35": {
+    "doc": "Pass",
+    "title": "Pass",
+    "content": "pass is the step type that always moves to success track logic steps . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/pass/",
+    "relUrl": "/pass/"
+  },"36": {
+    "doc": "Pass",
+    "title": "Signature",
+    "content": "pass(step_name, **options) . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/pass/#signature",
+    "relUrl": "/pass/#signature"
+  },"37": {
+    "doc": "Pass",
+    "title": "Behavior",
+    "content": ". | when step method(#pass_one) returns truthy or falsy value then it goes to success track(step_two step) | . require 'decouplio' class SomeAction &lt; Decouplio::Action logic do pass :pass_one step :step_two fail :fail_one end def pass_one ctx[:pass_one] = c.param_for_pass end def step_two ctx[:step_two] = 'Success' end def fail_one ctx[:fail_one] = 'Failure' end end pass_success = SomeAction.call(param_for_pass: true) pass_failure = SomeAction.call(param_for_pass: false) pass_success # =&gt; # Result: success # RailwayFlow: # pass_one -&gt; step_two # Context: # :param_for_pass =&gt; true # :pass_one =&gt; true # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE pass_failure # =&gt; # Result: success # RailwayFlow: # pass_one -&gt; step_two # Context: # :param_for_pass =&gt; false # :pass_one =&gt; false # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(pass_one success); 1(start)--&gt;3(pass_one failure); 2(pass_one success)--&gt;|success track|4(step_two); 3(pass_one failure)--&gt;|success track|4(step_two); 4(step_two)--&gt;|success track|5(finish_success) . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/pass/#behavior",
+    "relUrl": "/pass/#behavior"
+  },"38": {
+    "doc": "Quick start",
+    "title": "How to install?",
+    "content": "gem install decouplio --pre . Gemfile . gem 'decouplio', '~&gt; 1.0.0rc' . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/quick_start/#how-to-install",
+    "relUrl": "/quick_start/#how-to-install"
+  },"39": {
+    "doc": "Quick start",
+    "title": "Quick start",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/quick_start/",
+    "relUrl": "/quick_start/"
+  },"40": {
+    "doc": "Quick start",
+    "title": "What should you know before start?",
+    "content": "Action . Action is a class which encapsulates business logic. To create one just create a class and inherit it from Decouplio::Action class . require 'decouplio' class MyAction &lt; Decouplio::Action end . Logic block . Block inside Action which contains definition of business logic. require 'decouplio' class MyAction &lt; Decouplio::Action logic do # logic block end end . Step . Step is an atomic part of business logic and it defines inside Logic block. require 'decouplio' class MyAction &lt; Decouplio::Action logic do step :hello_world end def hello_world ctx[:result] = 'Hello world' end end MyAction.call[:result] # =&gt; Hello world . | Step types | . | step | . | fail | . | pass | . | wrap | . | octo | . | resq | . Context . Action context is an object which is used to share data between steps. It’s accessible only inside step. | To access the action context inside step you need to call ctx method | ctx behaves like a Hash. | To assign some value to ctx just do ctx[:some_key] = 'some value' | To access ctx value use ctx[:some_value] or use a shortcut c.some_value | . NOTE: you can’t assign context value using c.&lt;some key&gt; shortcut. require 'decouplio' class CtxIntroduction &lt; Decouplio::Action logic do step :calculate_result end def calculate_result ctx[:result] = c.one + c.two # OR # c[:result] = c[:one] + c[:two] #OR # ctx[:result] = ctx[:one] + ctx[:two] end end action_result = CtxIntroduction.call(one: 1, two: 2) action_result[:result] # =&gt; 3 . Success/Failure track . Execution flow of action is changing depending on step result. | If step returns truthy value(not nil|false), when next success track step will be executed. | If step returns falsy value(nil|false), when next failure track step will be executed. | . | Success track | Failure track | . | step | fail | . | pass |   | . | wrap |   | . | octo |   | . require 'decouplio' class Divider &lt; Decouplio::Action logic do step :validate_divider step :divide fail :failure_message end def validate_divider !ctx[:divider].zero? end def divide ctx[:result] = c.number / c.divider end def failure_message ctx[:error_message] = 'Division by zero is not allowed' end end divider_success = Divider.call(number: 4, divider: 2) divider_success.success? # =&gt; true divider_success.failure? # =&gt; false divider_success[:result] # =&gt; 2 divider_success[:error_message] # =&gt; nil divider_success.railway_flow # =&gt; [:validate_divider, :divide] puts divider_success # =&gt; # Result: success # RailwayFlow: # validate_divider -&gt; divide # Context: # :number =&gt; 4 # :divider =&gt; 2 # :result =&gt; 2 # Status: NONE # Errors: # NONE divider_failure = Divider.call(number: 4, divider: 0) divider_failure.success? #=&gt; false divider_failure.failure? #=&gt; true divider_failure[:result] # =&gt; nil divider_failure[:error_message] # =&gt; 'Division by zero is not allowed' divider_failure.railway_flow# =&gt; [:validate_divider, :failure_message] divider_failure # =&gt; # Result: failure # RailwayFlow: # validate_divider -&gt; failure_message # Context: # :number =&gt; 4 # :divider =&gt; 0 # :error_message =&gt; \"Division by zero is not allowed\" # Status: NONE # Errors: # NONE . Railway flow . During execution Decouplio is recording executed steps, so you check which steps were executed. It becomes in handy during debugging and writing test. class RailwayAction &lt; Decouplio::Action logic do step :step1 step :step2 step :step3 end def step1 ctx[:step1] = 'Step1' end def step2 ctx[:step2] = 'Step2' end def step3 ctx[:step3] = 'Step3' end end railway_action = RailwayAction.call railway_action.railway_flow.inspect # =&gt; [:step1, :step2, :step3] railway_action # =&gt; # Result: success # RailwayFlow: # step1 -&gt; step2 -&gt; step3 # Context: # :step1 =&gt; \"Step1\" # :step2 =&gt; \"Step2\" # :step3 =&gt; \"Step3\" # Status: NONE # Errors: # NONE . Meta Store . Generally metastore is a PORO, which is accessible inside steps by calling meta_store method or it’s alias ms. It was created to help developers to standardize things and keep meta info about action, because sometimes success? or failure? is not enough to make a decision about what to do next. I defined default metastore class which can manage custom action status and standardizes the way how error messages should be added. That’s how default metastore class looks like . # frozen_string_literal: true module Decouplio class DefaultMetaStore attr_accessor :status, :errors def initialize @errors = {} @status = nil end def add_error(key, messages) @errors.store( key, (@errors[key] || []) + [messages].flatten ) end # This method is used to print metastore status to console # when you checking action output def to_s &lt;&lt;~METASTORE Status: #{@status || 'NONE'} Errors: #{errors_string} METASTORE end private def errors_string return 'NONE' if @errors.empty? @errors.map do |k, v| \"#{k.inspect} =&gt; #{v.inspect}\" end.join(\"\\n \") end end end . So it’s allows you do this . class MetaStoreAction &lt; Decouplio::Action logic do step :always_fails fail :handle_fail end # Decouplio has tWo constants which are accessible inside steps # PASS = true # FAIL = false # You can use then to force step to fail or pass instead of `true` of `false` def always_fails FAIL end def handle_fail ms.status = :failed_and_i_duno_why ms.add_error(:something_went_wrong, 'Something went wrong') ms.add_error(:something_went_wrong, 'And I duno why :(') end end MetaStoreAction.call #=&gt; # Result: failure # RailwayFlow: # always_fails -&gt; handle_fail # Context: # Empty # Status: :failed_and_i_duno_why # Errors: # :something_went_wrong =&gt; [\"Something went wrong\", \"And I duno why :(\"] . NOTE: you can always define your own metastore class accordingly to your needs. DOCS ARE HERE . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/quick_start/#what-should-you-know-before-start",
+    "relUrl": "/quick_start/#what-should-you-know-before-start"
+  },"41": {
+    "doc": "Resq",
+    "title": "Resq",
+    "content": "Step type which can be used to handle errors raised during step invocation. ",
+    "url": "https://differencialx.github.io/decouplio.github.io/resq/",
+    "relUrl": "/resq/"
+  },"42": {
+    "doc": "Resq",
+    "title": "Signature",
+    "content": "resq(handler_method=nil, **options) . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/resq/#signature",
+    "relUrl": "/resq/#signature"
+  },"43": {
+    "doc": "Resq",
+    "title": "Behavior",
+    "content": ". | When resq step is defined it will catch exceptions raised from step defined above. | After resq performed handler method, next failure track step will be performed. You can override this behavior using on_error option for step. *** | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/resq/#behavior",
+    "relUrl": "/resq/#behavior"
+  },"44": {
+    "doc": "Resq all",
+    "title": "Resq all",
+    "content": "To catch any exception(inherited from StandardError) by resq you just need to specify a handler method, like in the example below. require 'decouplio' class ResqAllAction &lt; Decouplio::Action logic do step :step_one resq :handler_method step :step_two fail :fail_one end def step_one ctx[:step_one] = c.lambda_for_step_one.call end def step_two ctx[:step_two] = 'Success' end def fail_one ctx[:fail_one] = 'Failure' end def handler_method(error) ctx[:error] = error.message end end success_action = ResqAllAction.call(lambda_for_step_one: -&gt; { true }) failure_action = ResqAllAction.call(lambda_for_step_one: -&gt; { false }) erroneous_action = ResqAllAction.call( lambda_for_step_one: -&gt; { raise 'some error message' } ) success_action # =&gt; # Result: success # RailwayFlow: # step_one -&gt; step_two # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055b2f3d57ea0 resq/resq_all.rb:28 (lambda)&gt; # :step_one =&gt; true # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE failure_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055b2f3d57c98 resq/resq_all.rb:29 (lambda)&gt; # :step_one =&gt; false # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE erroneous_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; handler_method -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055b2f3d56d70 resq/resq_all.rb:31 (lambda)&gt; # :error =&gt; \"some error message\" # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(step_two); 3(step_two)--&gt;|success track|4(finish success); 2(step_one)--&gt;|failure track|5(fail_one); 5(fail_one)--&gt;|failure track|6(finish failure); 2(step_one)--&gt;|error track|7(handler_method); 7(handler_method)--&gt;|error track|5(fail_one); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/rescue_all/",
+    "relUrl": "/rescue_all/"
+  },"45": {
+    "doc": "Resq with mapping",
+    "title": "Resq with error class mapping",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/rescue_with_mapping/#resq-with-error-class-mapping",
+    "relUrl": "/rescue_with_mapping/#resq-with-error-class-mapping"
+  },"46": {
+    "doc": "Resq with mapping",
+    "title": "With one handler method and class",
+    "content": "require 'decouplio' class SomeAction &lt; Decouplio::Action logic do step :step_one resq handler_method: ArgumentError step :step_two fail :fail_one end def step_one(lambda_for_step_one:, **) ctx[:step_one] = lambda_for_step_one.call end def step_two(**) ctx[:step_two] = 'Success' end def fail_one(**) ctx[:fail_one] = 'Failure' end def handler_method(error, **this_is_ctx) ctx[:error] = error.message end end success_action = SomeAction.call(lambda_for_step_one: -&gt; { true }) failure_action = SomeAction.call(lambda_for_step_one: -&gt; { false }) erroneous_action = SomeAction.call( lambda_for_step_one: -&gt; { raise ArgumentError, 'some error message' } ) success_action # =&gt; # Result: success # RailwayFlow: # step_one -&gt; step_two # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055cd61ed4318 resq.rb:32 (lambda)&gt; # :step_one =&gt; true # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE failure_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055cd61eccac8 resq.rb:33 (lambda)&gt; # :step_one =&gt; false # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE erroneous_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; handler_method -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055cd61ebf5d0 resq.rb:35 (lambda)&gt; # :error =&gt; \"some error message\" # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(step_two); 3(step_two)--&gt;|success track|4(finish success); 2(step_one)--&gt;|failure track|5(fail_one); 5(fail_one)--&gt;|failure track|6(finish failure); 2(step_one)--&gt;|error track|7(handler_method); 7(handler_method)--&gt;|error track|5(fail_one); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/rescue_with_mapping/#with-one-handler-method-and-class",
+    "relUrl": "/rescue_with_mapping/#with-one-handler-method-and-class"
+  },"47": {
+    "doc": "Resq with mapping",
+    "title": "With several handler methods and classes",
+    "content": "class SomeActionSeveralHandlersErrorClasses &lt; Decouplio::Action logic do step :step_one resq handler_method_one: [ArgumentError, NoMethodError], handler_method_two: NotImplementedError step :step_two fail :fail_one end def step_one ctx[:step_one] = c.lambda_for_step_one.call end def step_two ctx[:step_two] = 'Success' end def fail_one ctx[:fail_one] = 'Failure' end def handler_method_one(error) ctx[:error] = error.message end def handler_method_two(error) ctx[:error] = error.message end end success_action = SomeActionSeveralHandlersErrorClasses.call( lambda_for_step_one: -&gt; { true } ) failure_action = SomeActionSeveralHandlersErrorClasses.call( lambda_for_step_one: -&gt; { false } ) argument_error_action = SomeActionSeveralHandlersErrorClasses.call( lambda_for_step_one: -&gt; { raise ArgumentError, 'Argument error message' } ) no_method_error_action = SomeActionSeveralHandlersErrorClasses.call( lambda_for_step_one: -&gt; { raise NoMethodError, 'NoMethodError error message' } ) no_implemented_error_action = SomeActionSeveralHandlersErrorClasses.call( lambda_for_step_one: -&gt; { raise NotImplementedError, 'NotImplementedError error message' } ) success_action # =&gt; # Result: success # RailwayFlow: # step_one -&gt; step_two # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055e5d6d61d68 resq/resq_with_mapping.rb:102 (lambda)&gt; # :step_one =&gt; true # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE failure_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055e5d6d61c00 resq/resq_with_mapping.rb:105 (lambda)&gt; # :step_one =&gt; false # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE argument_error_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; handler_method_one -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055e5d6d61a98 resq/resq_with_mapping.rb:108 (lambda)&gt; # :error =&gt; \"Argument error message\" # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE no_method_error_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; handler_method_one -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055e5d6d61868 resq/resq_with_mapping.rb:111 (lambda)&gt; # :error =&gt; \"NoMethodError error message\" # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE no_implemented_error_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; handler_method_two -&gt; fail_one # Context: # :lambda_for_step_one =&gt; #&lt;Proc:0x000055e5d6d614a8 resq/resq_with_mapping.rb:114 (lambda)&gt; # :error =&gt; \"NotImplementedError error message\" # :fail_one =&gt; \"Failure\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(step_two); 3(step_two)--&gt;|success track|4(finish success); 2(step_one)--&gt;|failure track|5(fail_one); 5(fail_one)--&gt;|failure track|6(finish failure); 2(step_one)--&gt;|ArgumentError|7(handler_method_one); 2(step_one)--&gt;|NoMethodError|9(handler_method_one); 2(step_one)--&gt;|NotImplementedError|8(handler_method_two); 7(handler_method_one)--&gt;|error track|5(fail_one); 9(handler_method_one)--&gt;|error track|5(fail_one); 8(handler_method_two)--&gt;|error track|5(fail_one); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/rescue_with_mapping/#with-several-handler-methods-and-classes",
+    "relUrl": "/rescue_with_mapping/#with-several-handler-methods-and-classes"
+  },"48": {
+    "doc": "Resq with mapping",
+    "title": "Resq with mapping",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/rescue_with_mapping/",
+    "relUrl": "/rescue_with_mapping/"
+  },"49": {
+    "doc": "Simple wrap",
+    "title": "Simple wrap",
+    "content": "class SomeAction &lt; Decouplio::Action logic do step :step_one wrap :wrap_one do step :step_two fail :fail_one end step :step_three fail :fail_two end def step_one(param_for_step_one:, **) ctx[:step_one] = param_for_step_one end def step_two(param_for_step_two:, **) ctx[:step_two]= param_for_step_two end def fail_one(**) ctx[:fail_one] = 'Fail one failure' end def step_three(**) ctx[:step_three] = 'Success' end def fail_two(**) ctx[:fail_two] = 'Fail two failure' end end success_wrap_success = SomeAction.call( param_for_step_one: true, param_for_step_two: true ) success_wrap_failure = SomeAction.call( param_for_step_one: true, param_for_step_two: false ) failure = SomeAction.call( param_for_step_one: false ) success_wrap_success # =&gt; # Result: success # RailwayFlow: # step_one -&gt; wrap_one -&gt; step_two -&gt; step_three # Context: # :param_for_step_one =&gt; true # :param_for_step_two =&gt; true # :step_one =&gt; true # :step_two =&gt; true # :step_three =&gt; \"Success\" # Status: NONE # Errors: # NONE success_wrap_failure # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; wrap_one -&gt; step_two -&gt; fail_one -&gt; fail_two # Context: # :param_for_step_one =&gt; true # :param_for_step_two =&gt; false # :step_one =&gt; true # :step_two =&gt; false # :fail_one =&gt; \"Fail one failure\" # :fail_two =&gt; \"Fail two failure\" # Status: NONE # Errors: # NONE failure # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; fail_two # Context: # :param_for_step_one =&gt; false # :step_one =&gt; false # :fail_two =&gt; \"Fail two failure\" # Status: NONE # Errors: # NONE . flowchart TD; 1(start)--&gt;2(step_one); 2(step_one)--&gt;|success track|3(wrap_one); subgraph wrap action; 3(wrap_one)--&gt;|success track|4(start); 4(start)--&gt;5(step_two); 5(step_two)--&gt;|success track|6(finish success); 5(step_two)--&gt;|failure track|9(fail_one); 9(fail_one)--&gt;|failure track|10(finish failure); end; 6(finish success)--&gt;|success track|7(step_three); 7(step_three)--&gt;|success track|8(finish success); 10(finish failure)--&gt;|failure track|11(fail_two); 11(fail_two)--&gt;|failure track|12(finish failure); 2(step_one)--&gt;|failure track|11(fail_two) ",
+    "url": "https://differencialx.github.io/decouplio.github.io/simple_wrap/",
+    "relUrl": "/simple_wrap/"
+  },"50": {
+    "doc": "Special constants",
+    "title": "Special constants",
+    "content": "Decouplio has two special constants PASS and FAIL. They simply are . PASS = true FAIL = false . You can use them inside step method as last line to make step pass of fail. class SomeAction &lt; Decouplio::Action logic do step :step_one end def step_one FAIL end end SomeAction.call #=&gt; # Result: failure # RailwayFlow: # step_one # Context: # Empty # Status: NONE # Errors: # NONE . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/special%20constants/",
+    "relUrl": "/special constants/"
+  },"51": {
+    "doc": "Step",
+    "title": "Step",
+    "content": "step is the basic type of logic steps . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step/",
+    "relUrl": "/step/"
+  },"52": {
+    "doc": "Step",
+    "title": "Signature",
+    "content": "step(step_name, **options) . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step/#signature",
+    "relUrl": "/step/#signature"
+  },"53": {
+    "doc": "Step",
+    "title": "Behavior",
+    "content": ". | when step method(#step_one) returns truthy value then it goes to success track(step_two step) | when step method(#step_one) returns falsy value then it goes to failure track(fail_one step) | . require 'decouplio' class SomeAction &lt; Decouplio::Action logic do step :step_one fail :fail_one step :step_two end def step_one c.param_for_step_one end def fail_one ctx[:action_failed] = true end def step_two ctx[:result] = 'Success' end end success_action = SomeAction.call(param_for_step_one: true) failure_action = SomeAction.call(param_for_step_one: false) success_action # =&gt; # Result: success # RailwayFlow: # step_one -&gt; step_two # Context: # :param_for_step_one =&gt; true # :result =&gt; \"Success\" # Status: NONE # Errors: # NONE failure_action # =&gt; # Result: failure # RailwayFlow: # step_one -&gt; fail_one # Context: # :param_for_step_one =&gt; false # :action_failed =&gt; true # Status: NONE # Errors: # NONE . flowchart LR; A(start)--&gt;B(step_one); B(step_one)--&gt;|success track|C(step_two); B(step_one)--&gt;|failure track|D(fail_one); C(step_two)--&gt;|success track|E(finish_success); D(fail_one)--&gt;|failure track|F(finish_failure); . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step/#behavior",
+    "relUrl": "/step/#behavior"
+  },"54": {
+    "doc": "Step as a service",
+    "title": "Step as a service",
+    "content": "It’s similar to Inner action, but instead of using Decouplio::Action, you can use PORO class. ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step_as_a_service/",
+    "relUrl": "/step_as_a_service/"
+  },"55": {
+    "doc": "Step as a service",
+    "title": "Signature",
+    "content": "(step|fail|pass)(service_class, **options) . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step_as_a_service/#signature",
+    "relUrl": "/step_as_a_service/#signature"
+  },"56": {
+    "doc": "Step as a service",
+    "title": "Behavior",
+    "content": ". | service class should implement .call class method | service class can be used for step or fail or pass | all options of step|fail|pass can be used, the same approach as for Inner action | depending on returning value of .call method(truthy ot falsy) the execution will be moved to success or failure track accordingly. | All options passed after class constant will be passed as kwargs into .call method, except default step/fail/pass options like on_success, on_failure, on_error, finish_him, if, unless | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step_as_a_service/#behavior",
+    "relUrl": "/step_as_a_service/#behavior"
+  },"57": {
+    "doc": "Step as a service",
+    "title": "How to use?",
+    "content": "Create a PORO class with .call class method. # ctx - required, it's a ctx from Decouplio::Action # ms - required, it's an meta_store from Decouplio::Action class Concat def self.call(ctx, ms, **) new(ctx).call end def initialize(ctx) @ctx = ctx end def call @ctx[:result] = @ctx[:one] + @ctx[:two] end end # OR # ctx - required, it's a ctx from Decouplio::Action # ms - required, it's an meta_store from Decouplio::Action class Subtract def self.call(ctx, ms, **) ctx[:result] = ctx[:one] - ctx[:two] end end # OR # :ctx - it's a ctx from Decouplio::Action # :ms - it's an meta_store from Decouplio::Action class MakeRequest def self.call(ctx, ms, **) ctx[:client].get(ctx[:url]) rescue Net::OpenTimeout =&gt; error ms.status = :timeout_error ms.add_error(:connection_error, error.message) end end . Now you can use these classes as a step|fail|pass step . class SomeActionConcat &lt; Decouplio::Action logic do step Concat end end action = SomeActionConcat.call(one: 1, two: 2) action[:result] # =&gt; 3 action # =&gt; # Result: success # RailwayFlow: # Concat # Context: # :one =&gt; 1 # :two =&gt; 2 # :result =&gt; 3 # Status: NONE # Errors: # NONE . OR . class SomeActionSubtract &lt; Decouplio::Action logic do step :init_one step :init_two step Subtract end def init_one ctx[:one] = c.param_one end def init_two ctx[:two] = c.param_two end end action = SomeActionSubtract.call(param_one: 5, param_two: 2) action[:result] # =&gt; 3 action # =&gt; # Result: success # RailwayFlow: # init_one -&gt; init_two -&gt; Subtract # Context: # :param_one =&gt; 5 # :param_two =&gt; 2 # :one =&gt; 5 # :two =&gt; 2 # :result =&gt; 3 # Status: NONE # Errors: # NONE . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step_as_a_service/#how-to-use",
+    "relUrl": "/step_as_a_service/#how-to-use"
+  },"58": {
+    "doc": "Step options",
+    "title": "Step options",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/step_options/",
+    "relUrl": "/step_options/"
+  },"59": {
+    "doc": "With inner action",
+    "title": "With inner action",
+    "content": "Octo with inner action . class InnerActionOne &lt; Decouplio::Action logic do step :inner_step_one end def inner_step_one ctx[:inner_step_one] = 'Inner step one' end end class InnerActionTwo &lt; Decouplio::Action logic do step :inner_step_two end def inner_step_two ctx[:inner_step_two] = 'Inner step two' end end class OctoAsInnerAction &lt; Decouplio::Action logic do octo :octo_name, ctx_key: :octo_key do on :octo_key1, InnerActionOne on :octo_key2, InnerActionTwo end end end OctoAsInnerAction.call(octo_key: :octo_key1) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key1 -&gt; InnerActionOne -&gt; inner_step_one # Context: # :octo_key =&gt; :octo_key1 # :inner_step_one =&gt; \"Inner step one\" # Status: NONE # Errors: # NONE OctoAsInnerAction.call(octo_key: :octo_key2) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key2 -&gt; InnerActionTwo -&gt; inner_step_two # Context: # :octo_key =&gt; :octo_key2 # :inner_step_two =&gt; \"Inner step two\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(octo_name); 2(octo_name)--&gt;|when :octo_key1|4(inner_step_one); 2(octo_name)--&gt;|when :octo_key2|6(inner_step_two); subgraph InnerActionOne; 4(inner_step_one)--&gt;7(finish_success); end; subgraph InnerActionTwo; 6(inner_step_two)--&gt;8(finish_success); end; 7(finish_success)--&gt;9(finish_success); 8(finish_success)--&gt;9(finish_success); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo_as_inner_action/",
+    "relUrl": "/octo_as_inner_action/"
+  },"60": {
+    "doc": "With service step",
+    "title": "With service step",
+    "content": "Octo with service step . class AssignMessage def self.call(ctx, ms, message:) ctx[:message] = message end end class OctoServiceStep &lt; Decouplio::Action logic do octo :octo_name, ctx_key: :octo_key do on :octo_key1, AssignMessage, message: 'Octo key 1', on_success: :PASS on :octo_key2, AssignMessage, message: 'Octo key 2', on_success: :PASS end end end puts OctoServiceStep.call(octo_key: :octo_key1) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key1 -&gt; AssignMessage # Context: # :octo_key =&gt; :octo_key1 # :message =&gt; \"Octo key 1\" # Status: NONE # Errors: # NONE puts OctoServiceStep.call(octo_key: :octo_key2) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key2 -&gt; AssignMessage # Context: # :octo_key =&gt; :octo_key2 # :message =&gt; \"Octo key 2\" # Status: NONE # Errors: # NONE . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo_as_service_step/",
+    "relUrl": "/octo_as_service_step/"
+  },"61": {
+    "doc": "With steps",
+    "title": "With steps",
+    "content": "You can specify a single step or several steps for octo case . logic do octo :octo_name, ctx_key: :octo_key do on :octo_key1, :step_one # Several steps could be also defined # such block will behave like simple 'warp' step on :octo_key2 do step :step_two step :step_one end end end def step_one ctx[:step_one] = 'step_one success' end def step_two ctx[:step_two] = 'step_two success' end end OctoAsStep.call(octo_key: :octo_key1) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key1 -&gt; step_one # Context: # :octo_key =&gt; :octo_key1 # :step_one =&gt; \"step_one success\" # Status: NONE # Errors: # NONE OctoAsStep.call(octo_key: :octo_key2) # =&gt; # Result: success # RailwayFlow: # octo_name -&gt; octo_key2 -&gt; step_two -&gt; step_one # Context: # :octo_key =&gt; :octo_key2 # :step_two =&gt; \"step_two success\" # :step_one =&gt; \"step_one success\" # Status: NONE # Errors: # NONE . flowchart LR; A(start)--&gt;B(octo_name); B(octo_name)--&gt;|when :octo_key1|C(step_one); B(octo_name)--&gt;|when :octo_key2|D(step_two); C(step_one)--&gt;|success track|E(finish_success); D(step_two)--&gt;|success track|F(step_one); F(step_one)--&gt;|success track|E(finish_success); ",
+    "url": "https://differencialx.github.io/decouplio.github.io/octo_as_steps/",
+    "relUrl": "/octo_as_steps/"
+  },"62": {
+    "doc": "Wrap",
+    "title": "Wrap",
+    "content": "wrap is the type of step, that behaves like step, but can wrap several steps with block to make some before/after actions or to rescue an error for several steps. ",
+    "url": "https://differencialx.github.io/decouplio.github.io/wrap/",
+    "relUrl": "/wrap/"
+  },"63": {
+    "doc": "Wrap",
+    "title": "Signature",
+    "content": "wrap(wrap_name, **options) do # steps to wrap end . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/wrap/#signature",
+    "relUrl": "/wrap/#signature"
+  },"64": {
+    "doc": "Wrap",
+    "title": "Behavior",
+    "content": ". | all steps inside wrap step will be perceived as inner action. So depending on inner action result the wrap step will be moved to success or failure track. | All step options for step can be applied for wrap | . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/wrap/#behavior",
+    "relUrl": "/wrap/#behavior"
+  },"65": {
+    "doc": "With class",
+    "title": "Wrap with class",
+    "content": "require 'decouplio' class WrapperClass def self.call(&amp;block) if block_given? puts 'Before wrapper action execution' block.call puts 'After wrapper action execution' end end end class SomeActionWrapKlassMethod &lt; Decouplio::Action logic do wrap :wrap_one, klass: WrapperClass do step :step_one step :step_two end end def step_one puts 'Step one' ctx[:step_one] = 'Success' end def step_two puts 'Step two' ctx[:step_two] = 'Success' end end action = SomeActionWrapKlassMethod.call # =&gt; # Before wrapper action execution # Step one # Step two # After wrapper action execution action # =&gt; # Result: success # RailwayFlow: # wrap_one -&gt; step_one -&gt; step_two # Context: # :step_one =&gt; \"Success\" # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE . ",
+    "url": "https://differencialx.github.io/decouplio.github.io/with_class/#wrap-with-class",
+    "relUrl": "/with_class/#wrap-with-class"
+  },"66": {
+    "doc": "With class",
+    "title": "With class",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/with_class/",
+    "relUrl": "/with_class/"
+  },"67": {
+    "doc": "With class and method",
+    "title": "Wrap with class and method",
+    "content": "require 'decouplio' class WrapperClass def self.some_wrapper_method(&amp;block) if block_given? puts 'Before wrapper action execution' block.call puts 'After wrapper action execution' end end end class SomeActionWrapKlassMethod &lt; Decouplio::Action logic do wrap :wrap_one, klass: WrapperClass, method: :some_wrapper_method do step :step_one step :step_two end end def step_one(**) puts 'Step one' ctx[:step_one] = 'Success' end def step_two(**) puts 'Step two' ctx[:step_two] = 'Success' end end action = SomeActionWrapKlassMethod.call # =&gt; # Before wrapper action execution # Step one # Step two # After wrapper action execution action # =&gt; # Result: success # RailwayFlow: # wrap_one -&gt; step_one -&gt; step_two # Context: # :step_one =&gt; \"Success\" # :step_two =&gt; \"Success\" # Status: NONE # Errors: # NONE . flowchart LR; 1(start)--&gt;2(wrap_one); subgraph wrap action; 2(wrap_one)--&gt;|success track|3(step_one); 3(step_one)--&gt;|success track|4(step_two); 4(step_two)--&gt;|success track|5(finish success); end; 5(finish success)--&gt;|success track|6(finish success) ",
+    "url": "https://differencialx.github.io/decouplio.github.io/with_class_method/#wrap-with-class-and-method",
+    "relUrl": "/with_class_method/#wrap-with-class-and-method"
+  },"68": {
+    "doc": "With class and method",
+    "title": "With class and method",
+    "content": " ",
+    "url": "https://differencialx.github.io/decouplio.github.io/with_class_method/",
+    "relUrl": "/with_class_method/"
+  }
+}
